@@ -1,0 +1,4 @@
+{{ object.name }}
+{{ object.category.name }}
+{{ object.brand.name }}
+{{ object.store.name }}

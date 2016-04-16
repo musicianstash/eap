@@ -1,0 +1,56 @@
+{% extends "layouts/base.html" %}
+
+{% load i18n %}
+{% load account socialaccount %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container main-container headerOffset">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row userInfo">
+                <div class="col-sm-3"></div>
+                <div class="col-xs-12 col-sm-6">
+                    <h1 class="section-title-inner"><span><i class="fa fa-lock"></i> Login</span></h1>
+                    {% get_providers as socialaccount_providers %}
+                    {% if socialaccount_providers %}
+                        <ul class="social">
+                            {% include "account/snippets/provider_list.html" with process="login" %}
+                        </ul>
+                        {% include "socialaccount/snippets/login_extra.html" %}
+                        <br>
+                        <br>
+                    {% else %}
+                        <p>{% blocktrans %}If you have not created an account yet, then please
+                        <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+                    {% endif %}
+
+                    <form role="form" class="logForm " method="POST" action="{% url 'account_login' %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <div class="form-group">
+                            <p>
+                                <a title="Recover your forgotten password" href="{% url 'account_reset_password' %}">
+                                    Forgot your password?
+                                </a>
+                            </p>
+                        </div>
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-sign-in"></i> {% trans "Sign In" %}</button>
+                    </form>
+                    <h2 class="block-title-2">
+                        <a href="{{ signup_url }}">New to our site. Please click here to sign up</a>
+                    </h2>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <!--/row end-->
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-5"></div>
+    </div>
+    <!--/row-->
+    <div style="clear:both"></div>
+</div>
+{% endblock %}

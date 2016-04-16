@@ -1,0 +1,41 @@
+{% load i18n %}
+
+<nav>
+    <ul class="pagination pagination-lg">
+        {% if page_obj.has_previous %}
+            <li class="previous">
+                <a href="?{{ page_obj.previous_page_number.querystring }}" aria-label="{% trans 'previous page' %}">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="hidden-xs">Previous</span>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for page in page_obj.pages %}
+            {% if page %}
+                {% if page == page_obj.number %}
+                    <li class="active">
+                        <a href="?{{ page.querystring }}">{{ page }} <span class="sr-only">({% trans 'current page' %})</span></a>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="?{{ page.querystring }}">{{ page }}</a>
+                    </li>
+                {% endif %}
+            {% else %}
+                <li class="disabled">
+                    <span>...</span>
+                </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+            <li class="next">
+                <a href="?{{ page_obj.next_page_number.querystring }}" aria-label="{% trans 'next page' %}">
+                    <span class="hidden-xs">Next</span>
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</nav>

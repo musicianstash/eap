@@ -1,0 +1,35 @@
+{% extends "layouts/base.html" %}
+
+{% load i18n %}
+{% load bootstrap3 %}
+
+{% block content %}
+<div class="container main-container headerOffset">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row userInfo">
+                <div class="col-sm-3"></div>
+                <div class="col-xs-12 col-sm-6">
+                    <h1 class="section-title-inner"><span><i class="fa fa-lock"></i> Sign Up</span></h1>
+                    <h2 class="block-title-2">
+                        <a href="{{ login_url }}">Already have an account? Then please sign in</a>
+                    </h2>
+                    <form role="form" class="logForm " method="POST" action="{% url 'account_signup' %}">
+                        {% csrf_token %}
+                        {% bootstrap_form form %}
+                        {% if redirect_field_value %}
+                            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                        {% endif %}
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-sign-in"></i> {% trans "Sign Up" %}</button>
+                    </form>
+                </div>
+                <div class="col-sm-3"></div>
+            </div>
+            <!--/row end-->
+        </div>
+        <div class="col-lg-3 col-md-3 col-sm-5"></div>
+    </div>
+    <!--/row-->
+    <div style="clear:both"></div>
+</div>
+{% endblock %}

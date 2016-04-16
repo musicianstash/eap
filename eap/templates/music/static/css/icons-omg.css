@@ -1,0 +1,55 @@
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+@font-face {
+font-family:omg;
+src:url(../fonts/Omg/omg.svg#omg) format('svg')
+}
+}
+@font-face {
+font-family:omg;
+src:url(../fonts/Omg/omg.eot);
+src:url(../fonts/Omg/omg.eot?#iefix) format('embedded-opentype'), url(../fonts/Omg/omg.woff) format('woff'), url(../fonts/Omg/omg.ttf) format('truetype');
+font-weight:400;
+font-style:normal
+}
+.icon-vcard, .icon-clock{
+	font-family:omg;
+	speak:none;
+	font-style:normal;
+	font-weight:400;
+	font-variant:normal;
+	text-transform:none;
+	line-height:1;
+	-webkit-font-smoothing:antialiased
+}
+
+
+.icon-vcard:before {
+	content: "\74";
+}
+.icon-clock:before {
+	content: "\4b";
+}
+
+
+
+.icon-uni4B:before {
+	content: "\4b";
+}
+.icon-uni4E:before {
+	content: "\4e";
+}
+.icon-uni30:before {
+	content: "\30";
+}
+.icon-uni37:before {
+	content: "\37";
+}
+.icon-uni2C:before {
+	content: "\2c";
+}
+.icon-uniE006:before {
+	content: "\e006";
+}
+.icon-uniE01C:before {
+	content: "\e01c";
+}

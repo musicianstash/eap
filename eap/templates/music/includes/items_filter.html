@@ -1,0 +1,33 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse{{ filter_name }}" class="collapseWill active">
+                  {{ filter_name }} <span class="pull-left"> <i class="fa fa-caret-right"></i></span>
+            </a>
+        </h4>
+    </div>
+    <div id="collapse{{ filter_name }}" class="panel-collapse collapse  {% if filter_active %}in{% endif %}">
+        <div class="panel-body smoothscroll maxheight300">
+            {% for filter_value in filter_values %}
+                <div class="block-element">
+                    <div class="checkbox checkbox-success">
+                        <input class="styled" type="checkbox" {% if filter_value.active %}checked{% endif %}>
+                        <label>
+                            <a href="?{{ filter_value.querystring }}">
+                            {% if filter_type == 'discount' %}
+                                {% if filter_value.value != '0' %}
+                                    {{ filter_value.value }}% or more ({{ filter_value.count }})
+                                {% else %}
+                                    Less than 10% ({{ filter_value.count }})
+                                {% endif %}
+                            {% else %}
+                                {{ filter_value.value }} ({{ filter_value.count }})
+                            {% endif %}
+                            </a>
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" href="#collapse{{ filter_name }}" class="collapseWill active ">
+                <span class="pull-left"> <i class="fa fa-caret-right"></i></span> {{ filter_name }}
+            </a>
+        </h4>
+    </div>
+
+    <div id="collapse{{ filter_name }}" class="panel-collapse collapse {% if filter_active %}in{% endif %}">
+        <div class="panel-body">
+            <ul class="category-parents">
+                {% for category_filter in category_filters.parent_categories %}
+                    <li>
+                        <i class="fa fa-angle-left"></i>
+                        <a href="{% url 'items' category_filter.value %}?{{ category_filter.querystring }}">
+                            {% if category_filter.value == current_category_obj.slug %}
+                            <b>{{ category_filter.name }} ({{ category_filter.count }})</b>
+                            {% else %}
+                            {{ category_filter.name }} ({{ category_filter.count }})
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <ul class="category-tree-siblings">
+                {% for category_filter in category_filters.categories %}
+                    <li>
+                        <a href="{% url 'items' category_filter.value %}?{{ category_filter.querystring }}">
+                            {% if category_filter.value == current_category_obj.slug %}
+                            <b>{{ category_filter.name }} ({{ category_filter.count }})</b>
+                            {% else %}
+                            {{ category_filter.name }} ({{ category_filter.count }})
+                            {% endif %}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>

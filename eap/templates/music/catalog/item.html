@@ -1,0 +1,244 @@
+{% extends "layouts/base.html" %}
+
+{% load thumbnail %}
+
+{% block content %}
+    <div class="container main-container headerOffset">
+        <div class="row transitionfx">
+
+            <!-- left column -->
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <!-- product Image and Zoom -->
+                <div class="main-image sp-wrap col-lg-12 no-padding">
+                    {% for image in item.images.all %}
+                        <a href="{% thumbnail image.image "593x722" as img %}{{ img.url }}{% endthumbnail %}">
+                            {% thumbnail image.image "593x722" as img %}
+                                <img class="img-responsive" alt="img" src="{{ img.url }}">
+                            {% endthumbnail %}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+            <!--/ left column end -->
+
+            <!-- right column -->
+            <div class="col-lg-6 col-md-6 col-sm-5">
+                <h2>{{ item.brand.name }}</h2>
+                <h1 class="product-title">{{ item.name }}</h1>
+
+                <div class="product-price">
+                    {% if item.discount %}
+                        <span class="price-sales"> {{ item.sale_price }}</span>
+                        <span class="price-standard">{{ item.price }}</span>
+                    {% else %}
+                        <span class="price-sales"> {{ item.price }}</span>
+                    {% endif %}
+                </div>
+                <div class="cart-actions">
+                    <div class="addto row">
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            {% if item.in_stock %}
+                            <a href="{{ item.url }}"
+                               class="link-wishlist wishlist btn-block"
+                               target="_blank">
+                                BUY ON STORE
+                            </a>
+                            {% else %}
+                            <a href="#" class="link-wishlist wishlist btn-block">
+                                GET STOCK ALERT
+                            </a>
+                            {% endif %}
+                        </div>
+
+                        {% if item.in_stock %}
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                            <a class="link-wishlist wishlist btn-block ">
+                                <i class="fa fa-tag"></i> Get price alert
+                            </a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div style="clear:both"></div>
+
+                    {% if item.in_stock %}
+                    <h3 class="incaps">
+                        <i class="fa fa fa-check-circle-o color-in"></i> In stock
+                    </h3>
+                    {% else %}
+                    <h3 class="incaps">
+                        <i class="fa fa-minus-circle color-out"></i> Out of stock
+                    </h3>
+                    {% endif %}
+
+                    {% if item.in_stock %}
+                    <h3 class="incaps">
+                        <i class="fa fa-tag"></i> Get discount alert
+                    </h3>
+                    {% endif %}
+                </div>
+                <!--/.cart-actions-->
+                <div class="color-details"><span class="selected-color"><strong>OTHER COLORS</strong></span>
+                    <ul class="swatches Color">
+                        <li class="selected"><a style="background-color:#f1f40e"> </a></li>
+                        <li><a style="background-color:#adadad"> </a></li>
+                        <li><a style="background-color:#4EC67F"> </a></li>
+                    </ul>
+                </div>
+                <!--/.color-details-->
+
+                <div class="clear"></div>
+                <div class="product-tab w100 clearfix">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#main" data-toggle="tab">Main</a></li>
+                        <li><a href="#specs" data-toggle="tab">Specifications</a></li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="main">
+                            {{ item.description }}
+                        </div>
+                        <div class="tab-pane" id="specs">
+                            <ul>
+                                <li>BTB4 neck</li>
+                                <li>Mahogany body</li>
+                                <li>3-piece maple neck</li>
+                                <li>Agathis Body</li>
+                                <li>24 medium frets</li>
+                                <li>Rosewood fingerboard</li>
+                                <li>B100 bridge</li>
+                                <li>DX-4N neck pu</li>
+                                <li>DX-4B bridge pu</li>
+                                <li>Pearl dot inlay</li>
+                                <li>Black chrome hardware</li>
+                                <li>PHAT II EQ</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.tab content -->
+
+                </div>
+                <!--/.product-tab-->
+
+                <div style="clear:both"></div>
+                <div class="product-share clearfix">
+                    <p> SHARE </p>
+                    <div class="socialIcon">
+                        <a href="#"> <i class="fa fa-facebook"></i></a>
+                        <a href="#"> <i class="fa fa-twitter"></i></a>
+                        <a href="#"> <i class="fa fa-google-plus"></i></a>
+                        <a href="#"> <i class="fa fa-pinterest"></i></a>
+                    </div>
+                </div>
+                <!--/.product-share-->
+            </div>
+            <!--/ right column end -->
+        </div>
+        <!--/.row-->
+
+        <div class="row recommended">
+            <h1> YOU MAY ALSO LIKE </h1>
+
+            <div id="SimilarProductSlider">
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/a1.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">YOUR LIFE</a></h4>
+
+                            <div class="price"><span>$57</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/a2.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">RED CROWN</a></h4>
+
+                            <div class="price"><span>$44</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/a3.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">WHITE GOLD</a></h4>
+
+                            <div class="price"><span>$35</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/a4.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">DENIM 4240</a></h4>
+
+                            <div class="price"> $<span>55</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/30.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">CROWN ROCK</a></h4>
+
+                            <div class="price"><span>$500</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/a5.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">SLIM ROCK</a></h4>
+
+                            <div class="price"><span>$50 </span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/36.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">ROCK T-Shirts </a></h4>
+
+                            <div class="price"><span>$130</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+
+                <div class="item">
+                    <div class="product"><a class="product-image"> <img src="images/product/13.jpg" alt="img"> </a>
+
+                        <div class="description">
+                            <h4><a href="san-remo-spaghetti">Denim T-Shirts </a></h4>
+
+                            <div class="price"><span>$43</span></div>
+                        </div>
+                    </div>
+                </div>
+                <!--/.item-->
+            </div>
+            <!--/.recommended-->
+
+        </div>
+        <div style="clear:both"></div>
+    </div>
+{% endblock content %}

@@ -1,0 +1,119 @@
+{% load static %}
+<div id="search-overly" class="search-overly-mask">
+    <a class=" search-close search-overly-close-trigger "> <i class=" fa fa-times-circle"> </i> </a>
+    <div class="container">
+
+        <form class="form-horizontal">
+            <fieldset>
+
+                <!-- Form Name -->
+
+                <!-- Appended Input-->
+                <div class="control-group">
+                    <label class="control-label">Search into the shop..</label>
+
+                    <div class="controls">
+                        <div class="search " role="search" id="mySearch">
+                            <input class="form-control" placeholder="Start typing " type="search">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    <span class="sr-only">Search</span>
+                                </button>
+                            </span>
+                        </div>
+                        <!-- for error or message -->
+                        <p class="help-block hide">help</p>
+                    </div>
+                </div>
+
+            </fieldset>
+        </form>
+
+
+    </div>
+</div>
+<!-- /#search-overly -->
+
+<div class="navbar navbar-default navbar-hero  navbar-fixed-top megamenu" role="navigation">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only"> Toggle navigation </span>
+                <span class="icon-bar"> </span>
+                <span class="icon-bar"> </span>
+                <span class="icon-bar"> </span>
+            </button>
+            <a class="navbar-brand " href="{% url 'home' %}">
+                <img src="{% static "images/logo.png" %}" alt="MUSIC">
+            </a>
+
+            <!-- this part for mobile -->
+            <div class="search-box pull-right hidden-lg hidden-md hidden-sm">
+                <div class="input-group">
+                    <button class="btn btn-nobg getFullSearch" type="button">
+                        <i class="fa fa-search"> </i>
+                    </button>
+                </div>
+                <!-- /input-group -->
+            </div>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                {% for item_category in item_categories %}
+                <li class="dropdown megamenu-fullwidth">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="{% url 'items' item_category.slug %}">
+                        {{ item_category.name }} <b class="caret"> </b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="megamenu-content">
+                            <!-- megamenu-content -->
+                            {% for item_subcategory in item_category.get_children %}
+                            <ul class="col-lg-2  col-sm-2 col-md-2 unstyled">
+                                <li class="no-border">
+                                    <p><strong>{{ item_subcategory.name }}</strong></p>
+                                </li>
+                                {% for item_subsubcategory in item_subcategory.get_children %}
+                                    <li><a href="{% url 'items' item_subsubcategory.slug %}">{{ item_subsubcategory.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            {% endfor %}
+                        </li>
+                    </ul>
+                </li>
+                {% endfor %}
+                <li><a href="#">Sale</a></li>
+            </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li class="hide-xs"><a class="btn btn-nobg  search-trigger"><i class="fa fa-search"> </i></a></li>
+                {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'account_logout' %}">Logout <i class="fa fa-user"></i></a>
+                    </li>
+                {% else %}
+                <li>
+                    <a href="{% url 'account_login' %}">Login <i class="fa fa-user"></i></a>
+                </li>
+                {% endif %}
+                <li class="hide-xs"><a> US <i class="fa fa-globe"></i> </a></li>
+            </ul>
+            <!--/.navbar-nav hidden-xs-->
+        </div>
+        <!--/.nav-collapse -->
+
+    </div>
+    <!--/.container -->
+
+    <div class="search-full text-right"><a class="pull-right search-close"> <i class=" fa fa-times-circle"> </i> </a>
+
+        <div class="searchInputBox pull-right">
+            <input type="search" data-searchurl="search?=" name="q" placeholder="start typing and hit enter to search"
+                   class="search-input">
+            <button class="btn-nobg search-btn" type="submit"><i class="fa fa-search"> </i></button>
+        </div>
+    </div>
+    <!--/.search-full-->
+
+</div>

@@ -1,0 +1,18 @@
+{% if caption_text %}
+    {% if caption_type == 'subtitle-top-uppercase' %}
+        <h5 class="slide-caption-subtitle top uppercase">{{ caption_text }}</h5>
+
+    {% elif caption_type == 'subtitle-bottom-uppercase' %}
+        <h5 class="slide-caption-subtitle bottom uppercase">{{ caption_text }}</h5>
+
+    {% elif caption_type == 'subtitle-title-sale-uppercase' %}
+        <h2 class="slide-caption-title sale uppercase">{{ caption_text }}</h2>
+
+    {% elif caption_type == 'slide-caption-title' %}
+        <h2 class="slide-caption-title">{{ caption_text }}</h2>
+
+    {% elif caption_type == 'slide-caption-title-uppercase' %}
+        <h2 class="slide-caption-title slide-caption-title-2 uppercase">{{ caption_text }}</h2>
+
+    {% endif %}
+{% endif %}

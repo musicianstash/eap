@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% load staticfiles %}
+{% load thumbnail %}
+
+{% block content %}
+{% include 'includes/slider.html' %}
+<!-- /.slider-hero-wrapper  -->
+
+<section class="section-hero gray-bg" id="section-category">
+    <div class="container">
+
+        <div class="hero-section-header ">
+            <h3 class="hero-section-title">MOST POPULAR CATEGORIES</h3>
+        </div>
+
+        <div class="row row-centered">
+            {% for category in popular_categories %}
+            <div class="block-explore col-centered col-sm-4 col-xs-4 col-xs-min-12">
+                <div class="inner">
+                    <a class="overly hw100" href="{% url 'items' category.slug %}">
+                        <span class="explore-title"> {{ category.name }}</span>
+                    </a>
+                    <a href="{% url 'items' category.slug %}" class="img-block">
+                        <img alt="img" src="{% thumbnail category.image "370x186" crop="center" as img %}{{ img.url }}{% endthumbnail %}">
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="section-hero-parallax parallax-section " id="hero-parallax"
+         style="background-image: url({% static "images/parallax/7.jpg" %});
+background-size: cover">
+    <div class="overly-shade">
+        <div class="container">
+
+            <div class="hero-parallax-content ">
+                <h3 class="hero-section-title"> More than 1000 brands </h3>
+                <a class="btn btn-stroke thin lite" href="category.html">Check them out</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{#    {% for featured_brand in featured_brands %}#}
+{#    <li>#}
+{#        <a href="#">#}
+{#            {% thumbnail featured_brand.image "100x100" as img %}#}
+{#                <img src="{{ img.url }}" width="{{ img.width }}" height="{{ img.height }}"/>#}
+{#            {% empty %}#}
+{#            {% endthumbnail %}#}
+{#            {{ featured_brand.title }}#}
+{#        </a>#}
+{#    </li>#}
+{#    {% endfor %}#}
+
+{% endblock content %}

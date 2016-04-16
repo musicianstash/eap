@@ -1,0 +1,61 @@
+/* intro mobile */
+.intro header {
+	position:absolute;
+	height: 100px;
+	width:100%;
+}
+.intro .rw-slider {
+	top: 0;
+	height: 100%;
+	font-size: 1.8em;
+}
+.intro .mobile-nav {
+	position:absolute;
+	top: 10px;
+	right: 100px;
+}
+.intro .rw-slider .control {
+	display:  block !important;
+}
+.intro .mobile-nav {
+	margin: 5px -40px 0 0;
+}
+.intro .mobile-nav .nav-item > a {
+	background: none !important;
+	border: none;
+}
+.intro .mobile-nav .nav-item > a .icon {
+	color:#000;
+}
+.intro footer {
+	position:absolute;
+	bottom: 15px;
+	z-index:100;
+	text-align:center;
+	color:#000;
+	width:100%;
+}
+.intro footer a {
+	color:#000 !important;
+}
+.intro .rw-slider .control {
+	font-size: 8em;
+}
+.intro .main-slider .title-slide-01 {
+	left: 0;
+	text-align: center;
+	top: 65%;
+	width: 100%;
+}
+.intro .main-slider .title-slide-02 {
+	left: 8%;
+	text-align: left;
+	top: 75%;
+	width: 80%;
+}
+.intro .main-slider .title-slide-03 {
+	left: 8%;
+	text-align: left;
+	top: 55%;
+	width: 80%;
+}

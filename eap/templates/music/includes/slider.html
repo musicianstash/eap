@@ -1,0 +1,58 @@
+{% load thumbnail %}
+{% load staticfiles %}
+
+<section class="slider-hero-wrapper">
+    <div class="slider-hero scrollme">
+        <a class="arrow-left" href="#"></a> <a class="arrow-right" href="#"></a>
+
+        <div class="swiper-container swiper-container-horizontal">
+            <div class="swiper-wrapper">
+                {% for slide in home_slides %}
+                <div class="swiper-slide slider-hero-bg"
+                     style="background-image: url({% thumbnail slide.image "1280x700" as img %}{{ img.url }}{% endthumbnail %})">
+                    <!-- Any HTML content of the first slide goes here -->
+                    <div class="slider-hero-content has-overly-shade hw100">
+                        <div class="display-table hw100">
+                            <div class="display-table-cell hw100">
+                                <div class="container ">
+                                    <div class="slider-hero-caption
+                                                has-{{ slide.background_type }}-bg
+                                                max-60
+                                                {% if slide.caption_position == 'center' %}center-block{% endif %}
+                                                text-{{ slide.caption_position }}
+                                                animateme"
+
+                                         data-when="span"
+                                         data-from="0"
+                                         data-to="0.7"
+                                         data-opacity="0"
+                                         data-translatey="200"
+                                         scale="0"
+                                         data-crop="true">
+
+                                        {% include 'includes/slider_caption.html' with caption_text=slide.title caption_type=slide.title_type %}
+                                        {% include 'includes/slider_caption.html' with caption_text=slide.title2 caption_type=slide.title_type2 %}
+                                        {% include 'includes/slider_caption.html' with caption_text=slide.title3 caption_type=slide.title_type3 %}
+                                        {% if slide.link and slide.link_title %}
+                                        <div class="slide-caption-text">
+                                            <a href="{{ slide.link }}"
+                                               class="btn btn-{% if slide.background_type == 'dark' %}stroke{% else %}dark{% endif %} lite">
+                                                {{ slide.link_title }} <i class="fa fa-caret-right"></i>
+                                            </a>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="swiper-pagination swiper-pagination-v"></div>
+        </div>
+
+
+    </div>
+</section>
