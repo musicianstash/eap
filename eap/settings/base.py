@@ -82,6 +82,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'eap.urls'
 
+# env variable to select theme template. Defaults to music.
 THEME_PREFIX = os.getenv('EAP_THEME_PREFIX', 'music')
 
 TEMPLATES = [
