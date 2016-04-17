@@ -46,7 +46,6 @@ INSTALLED_APPS = (
     'compressor',
     'haystack',
     'jsonrpc',
-    'rest_framework',
     'mptt',
     'sorl.thumbnail',
     'smart_selects',
@@ -147,16 +146,6 @@ HAYSTACK_CONNECTIONS = {
         'URL': os.getenv('EAP_HC_DEFAULT_URL', 'http://127.0.0.1:8080/solr')
     },
 }
-
-
-REST_FRAMEWORK = {
-    # Use Django's standard `django.contrib.auth` permissions,
-    # or allow read-only access for unauthenticated users.
-    'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
-    ]
-}
-
 
 AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",

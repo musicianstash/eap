@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+from jsonrpc import jsonrpc_site
 from django.conf.urls import url
-
-from . import views
+from . import views  # noqa
 
 urlpatterns = [
-    url(r'^item/', views.ItemView.as_view(), name="api_item"),
+    url(r'^(?P<method>[a-zA-Z0-9.-_]+)/$', jsonrpc_site.dispatch),
+    url(r'^$', jsonrpc_site.dispatch, name="jsonrpc_mountpoint"),
 ]
