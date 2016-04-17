@@ -12,6 +12,7 @@ django-haystack-panel==0.2.1
 django-haystack==2.4.1
 django-mptt==0.8.3
 django-pure-pagination==0.3.0
+django-json-rpc==0.7.2
 django-smart-selects==1.2.2
 django-suit==0.2.18
 Django==1.9.5
