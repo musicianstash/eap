@@ -40,13 +40,13 @@ _Open terminal and run `mysql` so that mysql console is started._
 
 `_ALTER DATABASE eap CHARACTER SET utf8 COLLATE utf8_general_ci_`
 
-####2.) Install python libraries
+####3.) Install python libraries
 Make sure that you are using python 3.5, because any lower version won't work.
 
 Open terminal and open project directory (root of the project). Then run following command:
 `pip install -r requirements.txt`
 
-####3.) Run django commands to finish application installation
+####4.) Run django commands to finish application installation
 Create database tables through following command:
 
 `python manage.py migrate`
@@ -59,7 +59,7 @@ Get currency exchange rates through following command:
 
 `python manage.py update_rates`
 
-####4.) Start development server
+####5.) Start development server
 Test out application. Run following command:
 
 `python manage.py runserver`
