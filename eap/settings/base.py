@@ -50,7 +50,7 @@ INSTALLED_APPS = (
     'adminsortable2',
     'bootstrap3',
     'pure_pagination',
-    'turbolinks',
+    # 'turbolinks',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -69,7 +69,7 @@ INSTALLED_APPS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'turbolinks.middleware.TurbolinksMiddleware',
+    # 'turbolinks.middleware.TurbolinksMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -86,7 +86,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            '/home/rok/PycharmProjects/eap/eap/templates/music',
+            os.path.join(BASE_DIR, 'eap/templates/music')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -117,7 +117,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'eap',
         'USER': 'root',
-        'PASSWORD': 'voodoo3000',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
         'PORT': '3306',
     }
