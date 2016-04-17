@@ -2,10 +2,10 @@
 Django settings for eap project.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/1.8/topics/settings/
+https://docs.djangoproject.com/en/1.9/topics/settings/
 
 For the full list of settings and their values, see
-https://docs.djangoproject.com/en/1.8/ref/settings/
+https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -15,10 +15,10 @@ BASE_DIR = os.path.abspath(os.path.dirname(__name__))
 
 
 # Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
+# See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '#xhqcsqose+!fkdnwd80&kgm_-4(fth3n52lcchlk(@qs_z!^h'
+SECRET_KEY = os.getenv('EAP_SECRET_KEY', 'secret_key')
 
 DEBUG = False
 
@@ -82,11 +82,13 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'eap.urls'
 
+THEME_PREFIX = os.getenv('EAP_THEME_PREFIX', 'music')
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'eap/templates/music')
+            os.path.join(BASE_DIR, 'eap/templates/{}'.format(THEME_PREFIX))
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -111,15 +113,15 @@ WSGI_APPLICATION = 'eap.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/1.8/ref/settings/#databases
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'eap',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': os.getenv('EAP_DB_DEFAULT_NAME', 'eap'),
+        'USER': os.getenv('EAP_DB_DEFAULT_USER', 'root'),
+        'PASSWORD': os.getenv('EAP_DB_DEFAULT_PASSWORD', 'admin'),
+        'HOST': os.getenv('EAP_DB_DEFAULT_HOST', 'localhost'),
+        'PORT': os.getenv('EAP_DB_DEFAULT_PORT', '3306'),
     }
 }
 
@@ -138,7 +140,7 @@ CACHES = {
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8080/solr'
+        'URL': os.getenv('EAP_HC_DEFAULT_URL', 'http://127.0.0.1:8080/solr')
     },
 }
 
@@ -160,8 +162,7 @@ ACCOUNT_LOGOUT_ON_GET = True
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/1.8/topics/i18n/
-
+# https://docs.djangoproject.com/en/1.9/topics/i18n/
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -174,39 +175,40 @@ USE_TZ = True
 
 DISCOUNT_RANGES = (10, 20, 30, 40, 50, 70)
 
-OPENEXCHANGERATES_API_KEY = 'cd4f8092337f41b8a12da232d1191317'
+OPENEXCHANGERATES_API_KEY = os.getenv('EAP_OPENEXCHANGERATES_API_KEY',
+                                      'cd4f8092337f41b8a12da232d1191317')
 
 PAGINATION_SETTINGS = {
     'PAGE_RANGE_DISPLAYED': 3,
     'MARGIN_PAGES_DISPLAYED': 2,
-
     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
 }
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
-
-THUMBNAIL_DUMMY = True
-
+# https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
 
-STATIC_URL = os.getenv('STATIC_URL', '/static/')
-MEDIA_ROOT = os.getenv('MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
-MEDIA_URL = os.getenv('MEDIA_URL', '/media/')
-STATIC_ROOT = os.getenv('STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
+STATIC_URL = os.getenv('EAP_STATIC_URL', '/static/')
+MEDIA_ROOT = os.getenv('EAP_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
+MEDIA_URL = os.getenv('EAP_MEDIA_URL', '/media/')
+STATIC_ROOT = os.getenv('EAP_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'eap/templates/music/static'),
+    os.path.join(BASE_DIR, 'eap/templates/{}/static'.format(THEME_PREFIX)),
 )
 
-# CELERY STUFF
-BROKER_URL = 'redis://localhost:6379'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+# Solr thumbnail
+# http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
+THUMBNAIL_DUMMY = True
+
+# Celery
+BROKER_URL = os.getenv('EAP_CELERY_BROKER_URL', 'redis://localhost:6379')
+CELERY_RESULT_BACKEND = os.getenv('EAP_CELERY_RESULT_BACKEND', 'redis://localhost:6379')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
