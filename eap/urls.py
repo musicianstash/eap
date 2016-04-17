@@ -5,6 +5,7 @@ The `urlpatterns` list routes URLs to views. For more information please see:
 from django.conf import settings
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
+from django.views.static import serve
 
 
 urlpatterns = [
@@ -19,11 +20,11 @@ urlpatterns = [
     url(r'^catalog/', include('eap.apps.catalog.urls')),
     url(r'^apiv1/', include('eap.apps.api.urls')),
 
-    url(r'^$', include('eap.apps.home.urls')),
+    url(r'^', include('eap.apps.home.urls')),
 ]
 
 
 if settings.DEBUG:
-    urlpatterns += patterns(
-        '', url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
-    )
+    urlpatterns += [
+        url(r'^media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT})
+    ]
