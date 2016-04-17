@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     # external apps
     'compressor',
     'haystack',
+    'jsonrpc',
     'rest_framework',
     'mptt',
     'sorl.thumbnail',
