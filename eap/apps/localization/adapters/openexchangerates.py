@@ -1,11 +1,10 @@
-
+# -*- coding: utf-8 -*-
 import logging
-
-from openexchangerates import OpenExchangeRatesClient
 
 from django.conf import settings
 
 from ..adapters import BaseAdapter
+from ..utils.openexchangerates import OpenExchangeRatesClient
 
 logger = logging.getLogger(__name__)
 
