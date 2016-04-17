@@ -24,6 +24,8 @@ DEBUG = False
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 
 # Application definition
 
@@ -160,6 +162,16 @@ AUTHENTICATION_BACKENDS = (
 )
 
 ACCOUNT_LOGOUT_ON_GET = True
+
+# Django Suit Admin configuration
+# http://django-suit.readthedocs.org/en/develop/configuration.html
+SUIT_CONFIG = {
+    # header
+    'ADMIN_NAME': 'EAP ADMIN',
+
+    # menu
+    'SEARCH_URL': '/admin/catalog/item/',
+}
 
 
 # Internationalization
