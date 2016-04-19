@@ -5,11 +5,22 @@ from django.contrib.auth.models import User
 
 class Article(models.Model):
     """Model holds news article"""
-    pub_date = models.DateField()
-    title = models.CharField(max_length=255)
     content = models.TextField()
-    reporter = models.ForeignKey(User)
+    category = models.ForeignKey('categories.Category')
+    published_date = models.DateField()
+    created_date = models.DateField()
+    updated_date = models.DateField()
+    title = models.CharField(max_length=255)
+    reporter = models.ForeignKey(User, related_name='reporter')
 
-    # TODO: define methods
-    # TODO: Check this implementation: https://github.com/Fantomas42/django-blog-zinnia/blob/develop/zinnia/models_bases/entry.py
+    # sortable property
+    order = models.PositiveIntegerField()
+
+
+
+class ArticleImage(models.Model):
+    """Model holds images for news article"""
+    article = models.ForeignKey(Article, related_name='images')
+    image = models.ImageField(upload_to='articles')
+
 
