@@ -45,6 +45,7 @@ INSTALLED_APPS = (
     # external apps
     'categories',
     'categories.editor',
+    'ckeditor',
     'compressor',
     'haystack',
     'jsonrpc',
@@ -68,6 +69,7 @@ INSTALLED_APPS = (
     'eap.apps.store',
     'eap.apps.api',
     'eap.apps.home',
+    'eap.apps.news',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -221,3 +223,6 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = os.getenv('EAP_CELERY_TIMEZONE', 'Africa/Nairobi')
+
+# CKEditor
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
