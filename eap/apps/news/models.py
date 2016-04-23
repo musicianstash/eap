@@ -23,15 +23,17 @@ class ArticleCategory(models.Model):
         get_latest_by = 'order'
         ordering = ['order']
 
+    def __str__(self):
+        return self.name
 
 
 class Article(models.Model):
     """Model holds news article"""
     category = models.ForeignKey(ArticleCategory, related_name='category', on_delete=models.PROTECT)
     content = models.TextField()
-    created_at = models.DateField(auto_now_add=True)
-    published_at = models.DateField()
-    updated_at = models.DateField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    published_at = models.DateTimeField(null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
     title = models.CharField(max_length=255)
     publisher = models.ForeignKey(User, related_name='publisher')
     status = models.IntegerField(choices=STATUS_CHOICES, default=DRAFT)
@@ -42,6 +44,9 @@ class Article(models.Model):
     class Meta(object):
         get_latest_by = 'published_at'
         ordering = ['-published_at']
+
+    def __str__(self):
+        return self.title
 
 
 
