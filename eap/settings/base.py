@@ -43,14 +43,13 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # external apps
-    'categories',
-    'categories.editor',
     'ckeditor',
     'compressor',
     'haystack',
     'jsonrpc',
     'mptt',
     'sorl.thumbnail',
+    'storages',
     'smart_selects',
     'adminsortable2',
     'bootstrap3',
@@ -203,7 +202,6 @@ STATICFILES_FINDERS = (
     'compressor.finders.CompressorFinder',
 )
 
-STATIC_URL = os.getenv('EAP_STATIC_URL', '/static/')
 MEDIA_ROOT = os.getenv('EAP_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 MEDIA_URL = os.getenv('EAP_MEDIA_URL', '/media/')
 STATIC_ROOT = os.getenv('EAP_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
@@ -226,3 +224,29 @@ CELERY_TIMEZONE = os.getenv('EAP_CELERY_TIMEZONE', 'Africa/Nairobi')
 
 # CKEditor
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+# AWS
+AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+    'Cache-Control': 'max-age=94608000',
+}
+# AWS_STORAGE_BUCKET_NAME = 'static.musicianstash.com'
+AWS_STORAGE_BUCKET_NAME = 'musicianstash'
+AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
+STATIC_URL = "http://{}/".format(AWS_S3_CUSTOM_DOMAIN)
+# TODO: when we will have CNAME defined for S3
+# TODO: AWS_S3_CUSTOM_DOMAIN = 'static.musicianstash.com'
+# TODO: from S3 import CallingFormat
+# TODO: AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
+
+# do not use query string authentication
+AWS_QUERYSTRING_AUTH = False
+
+# disable https for cross site problems
+AWS_S3_SECURE_URLS = False
+AWS_PRELOAD_METADATA = True
+
