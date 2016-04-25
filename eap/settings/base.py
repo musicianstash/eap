@@ -203,7 +203,6 @@ STATICFILES_FINDERS = (
 )
 
 MEDIA_ROOT = os.getenv('EAP_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
-MEDIA_URL = os.getenv('EAP_MEDIA_URL', '/media/')
 STATIC_ROOT = os.getenv('EAP_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 
 STATICFILES_DIRS = (
@@ -228,20 +227,21 @@ CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.j
 # AWS
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+STATICFILES_STORAGE = 'eap.contrib.custom_storages.StaticStorage'
+DEFAULT_FILE_STORAGE = 'eap.contrib.custom_storages.MediaStorage'
 AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
     'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
     'Cache-Control': 'max-age=94608000',
 }
-# AWS_STORAGE_BUCKET_NAME = 'static.musicianstash.com'
-AWS_STORAGE_BUCKET_NAME = 'musicianstash'
-AWS_S3_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STORAGE_BUCKET_NAME)
-STATIC_URL = "http://{}/".format(AWS_S3_CUSTOM_DOMAIN)
-# TODO: when we will have CNAME defined for S3
-# TODO: AWS_S3_CUSTOM_DOMAIN = 'static.musicianstash.com'
-# TODO: from S3 import CallingFormat
-# TODO: AWS_CALLING_FORMAT = CallingFormat.SUBDOMAIN
+AWS_STATIC_STORAGE_BUCKET_NAME = 'static.musicianstash.com'
+AWS_MEDIA_STORAGE_BUCKET_NAME = 'media.musicianstash.com'
+AWS_S3_STATIC_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STATIC_STORAGE_BUCKET_NAME)
+AWS_S3_MEDIA_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_MEDIA_STORAGE_BUCKET_NAME)
+STATIC_URL = "http://{}/".format(AWS_S3_STATIC_CUSTOM_DOMAIN)
+MEDIA_URL = "http://{}/".format(AWS_S3_MEDIA_CUSTOM_DOMAIN)
+
+AWS_S3_HOST = 's3-eu-west-1.amazonaws.com'
+AWS_S3_CALLING_FORMAT = 'boto.s3.connection.OrdinaryCallingFormat'
 
 # do not use query string authentication
 AWS_QUERYSTRING_AUTH = False
