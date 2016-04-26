@@ -3,66 +3,47 @@
 ##INSTALATION
 
 ###Docker
-Currently not supported, but will come soon.
+**TESTED ON:** Ubuntu 16.04
 
-###Manual (Tested on ubuntu 16.04)
-####1.) Install redis, solr nosql db, ...
-Install "mysql-server" server and "libmysqlclient-dev" library through terminal with following
-command (if you don't care what is password for mysql, then write password `admin` and in that
-way you will avoid setting up env variable in latter process):
+####1.) Install docker and docker compose (if it's not already installed)
+For installation procedure for docker please visit [docker website](https://docs.docker.com/engine/installation/)
 
-`sudo apt-get install mysql-server libmysqlclient-dev`
+For installation procedure for docker compose please visit [docker website](https://docs.docker.com/compose/install/)
 
-Install **_redis server_** through terminal with following command:
+####2.) Build image and container
+Run a command:
 
-`sudo apt-get install redis-server`
+`make build`
 
-Install **_nosql databae solr_** through terminal with following command:
+####3.) Create tables, superuser and update rates
+First create db tables with a command:
 
-`sudo apt-get -y install solr-tomcat`
+`make migrate`
 
-Install **_libjpeg-dev_** (required py Pillow python lib) through terminal with following command:
+Then run a command to create a superuser:
 
-`sudo apt-get install libjpeg-dev`
+`make createsuperuser`
 
-####2.) Create mysql eap database and set encoding
-Open terminal and run `mysql` so that mysql console is started.
+Then run a command to get exchange rates:
 
-In mysql console write following command so that database is created and encoding set (if not utf-8
- application won't work):
-`CREATE DATABASE eap CHARACTER SET utf8 COLLATE utf8_general_ci`
+`make updaterates`
 
-**_GO THROUGH THIS IF ENCODING WAS NOT SET WITH A PREVIOUS COMMAND (in case command in previous
-section was not run or database was created with some third party database tool while wrong
-encoding was set)_**
-
-_Open terminal and run `mysql` so that mysql console is started._
-
-`_ALTER DATABASE eap CHARACTER SET utf8 COLLATE utf8_general_ci_`
-
-####3.) Install python libraries
-Make sure that you are using python 3.5, because any lower version won't work.
-
-Open terminal and open project directory (root of the project). Then run following command:
-`pip install -r requirements.txt`
-
-####4.) Run django commands to finish application installation
-Create database tables through following command:
-
-`python manage.py migrate`
-
-Create super user through following command:
-
-`python manage.py createsuperuser`
-
-Get currency exchange rates through following command:
-
-`python manage.py update_rates`
-
-####5.) Start development server
+####4.) Start development server
 Test out application. Run following command:
 
-`python manage.py runserver`
+`make dev`
 
-_EAP application should be available through the following url: `http://127.0.0.1:8000/` or
-to enter admin enter this url: `http://127.0.0.1:8000/admin`_
+_EAP application should be available through the following url: `http://localhost:8080/` or
+to enter admin enter this url: `http://localhost:8080/admin`_
+
+
+##OTHER
+
+#### Manage database with adminer
+Run following command:
+
+`make adminer`
+
+Now you can access adminer on the following url and enter as password `eap`:
+
+`http://localhost:9000/?pgsql=postgres&username=eap&db=eap&ns=public`
