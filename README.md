@@ -47,3 +47,6 @@ Run following command:
 Now you can access adminer on the following url and enter as password `eap`:
 
 `http://localhost:9000/?pgsql=postgres&username=eap&db=eap&ns=public`
+
+#### Docker-Django documentation
+Here is official tutorial that we followed for setting up project structure: `https://realpython.com/blog/python/django-development-with-docker-compose-and-machine/`
