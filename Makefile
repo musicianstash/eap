@@ -2,7 +2,7 @@ build:
 	docker-compose build app
 
 start:
-    docker-compose up -d
+	docker-compose up -d
 
 dev:
 	docker-compose run --service-ports app /usr/local/bin/python manage.py runserver 0.0.0.0:8080
