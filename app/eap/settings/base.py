@@ -209,7 +209,7 @@ MEDIA_ROOT = os.getenv('EAP_MEDIA_ROOT', os.path.join(BASE_DIR, 'media'))
 STATIC_ROOT = os.getenv('EAP_STATIC_ROOT', os.path.join(BASE_DIR, 'static'))
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'eap/templates/{}/static'.format(THEME_PREFIX)),
+    os.path.join(BASE_DIR, 'templates/{}/static'.format(THEME_PREFIX)),
 )
 
 # Solr thumbnail

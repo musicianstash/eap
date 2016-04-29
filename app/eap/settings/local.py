@@ -33,3 +33,6 @@ DEBUG_TOOLBAR_PANELS = [
 
 STATIC_URL = os.getenv('EAP_STATIC_URL', '/static/')
 MEDIA_URL = os.getenv('EAP_MEDIA_URL', '/media/')
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
+DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'

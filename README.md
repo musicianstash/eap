@@ -15,7 +15,12 @@ Run a command:
 
 `make build`
 
-####3.) Create tables, superuser and update rates
+####3.) Start services
+Run a command to start the containers in the background and leave them running:
+
+`docker-compose up -d`
+
+####4.) Create tables, superuser and update rates
 First create db tables with a command:
 
 `make migrate`
@@ -28,13 +33,13 @@ Then run a command to get exchange rates:
 
 `make updaterates`
 
-####4.) Start development server
+####5.) Start development server
 Test out application. Run following command:
 
 `make dev`
 
-_EAP application should be available through the following url: `http://localhost:8080/` or
-to enter admin enter this url: `http://localhost:8080/admin`_
+EAP application should be available through the following url: http://localhost:8080/ or
+to enter admin enter this url: http://localhost:8080/admin
 
 
 ##OTHER
@@ -46,7 +51,7 @@ Run following command:
 
 Now you can access adminer on the following url and enter as password `eap`:
 
-`http://localhost:9000/?pgsql=postgres&username=eap&db=eap&ns=public`
+http://localhost:9000/?pgsql=postgres&username=eap&db=eap&ns=public
 
 #### Docker-Django documentation
-Here is official tutorial that we followed for setting up project structure: `https://realpython.com/blog/python/django-development-with-docker-compose-and-machine/`
+Here is official tutorial that we followed for setting up project structure: https://realpython.com/blog/python/django-development-with-docker-compose-and-machine/
