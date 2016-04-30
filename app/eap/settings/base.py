@@ -229,6 +229,9 @@ STATICFILES_DIRS = (
 # Solr thumbnail
 # http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
 THUMBNAIL_DUMMY = True
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
+THUMBNAIL_REDIS_HOST = 'redis'
+
 
 # Celery
 BROKER_URL = os.getenv('EAP_CELERY_BROKER_URL', 'redis://localhost:6379')
