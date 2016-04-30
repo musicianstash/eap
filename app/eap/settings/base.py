@@ -9,12 +9,14 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
-
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
+
+import os
+
+# *** Base settings
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('EAP_SECRET_KEY', 'secret_key')
@@ -24,6 +26,11 @@ DEBUG = False
 ALLOWED_HOSTS = []
 
 SITE_ID = 1
+
+# env variable to select theme template. Defaults to music.
+THEME_PREFIX = os.getenv('EAP_THEME_PREFIX', 'music')
+
+ROOT_URLCONF = 'eap.urls'
 
 
 # Application definition
@@ -73,6 +80,7 @@ INSTALLED_APPS = (
     'eap.apps.news',
 )
 
+
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
     # 'turbolinks.middleware.TurbolinksMiddleware',
@@ -86,10 +94,6 @@ MIDDLEWARE_CLASSES = (
     'eap.middleware.ProcessExceptionMiddleware'
 )
 
-ROOT_URLCONF = 'eap.urls'
-
-# env variable to select theme template. Defaults to music.
-THEME_PREFIX = os.getenv('EAP_THEME_PREFIX', 'music')
 
 TEMPLATES = [
     {
@@ -119,39 +123,13 @@ TEMPLATES = [
 WSGI_APPLICATION = 'eap.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.getenv('EAP_DB_DEFAULT_NAME', 'eap'),
-        'USER': os.getenv('EAP_DB_DEFAULT_USER', 'eap'),
-        'PASSWORD': os.getenv('EAP_DB_DEFAULT_PASSWORD', 'eap'),
-        'HOST': os.getenv('EAP_DB_DEFAULT_HOST', 'localhost'),
-        'PORT': os.getenv('EAP_DB_DEFAULT_PORT', '5432'),
-    }
-}
+# *** Custom apps settings
+DISCOUNT_RANGES = (10, 20, 30, 40, 50, 70)
 
-# Cache
-# https://docs.djangoproject.com/en/dev/topics/cache/
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-    }
-}
+OPENEXCHANGERATES_API_KEY = os.getenv('EAP_OPENEXCHANGERATES_API_KEY',
+                                      'cd4f8092337f41b8a12da232d1191317')
 
-
-# Haystack search engine
-# http://django-haystack.readthedocs.org/en/latest/toc.html
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': os.getenv('EAP_HC_DEFAULT_URL', 'http://localhost:8080/solr')
-    },
-}
-
-# Elasticsearch search engine
+# Elasticsearch search engine connections
 ELASTICDJANGO_CONNECTIONS = {
     'default': {
         'hosts': 'elasticsearch:9200'
@@ -166,6 +144,42 @@ ELASTICDJANGO_INDEX_SETTINGS = {
 }
 
 
+# *** Database
+# https://docs.djangoproject.com/en/1.9/ref/settings/#databases
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.getenv('EAP_DB_DEFAULT_NAME', 'eap'),
+        'USER': os.getenv('EAP_DB_DEFAULT_USER', 'eap'),
+        'PASSWORD': os.getenv('EAP_DB_DEFAULT_PASSWORD', 'eap'),
+        'HOST': os.getenv('EAP_DB_DEFAULT_HOST', 'localhost'),
+        'PORT': os.getenv('EAP_DB_DEFAULT_PORT', '5432'),
+    }
+}
+
+
+# *** Cache
+# https://docs.djangoproject.com/en/dev/topics/cache/
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+
+# *** Haystack search engine
+# http://django-haystack.readthedocs.org/en/latest/toc.html
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': os.getenv('EAP_HC_DEFAULT_URL', 'http://localhost:8080/solr')
+    },
+}
+
+
+# *** Auth
+# https://docs.djangoproject.com/es/1.9/topics/auth/customizing/
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
@@ -174,10 +188,14 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
+
+# *** Django all auth
+# http://django-allauth.readthedocs.io/en/latest/index.html
 ACCOUNT_LOGOUT_ON_GET = True
 
+
 # Django Suit Admin configuration
-# http://django-suit.readthedocs.org/en/develop/configuration.html
+# *** http://django-suit.readthedocs.org/en/develop/configuration.html
 SUIT_CONFIG = {
     # header
     'ADMIN_NAME': 'EAP ADMIN',
@@ -187,23 +205,17 @@ SUIT_CONFIG = {
 }
 
 
-# Internationalization
+# *** Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_L10N = True
-
 USE_TZ = True
 
-DISCOUNT_RANGES = (10, 20, 30, 40, 50, 70)
 
-OPENEXCHANGERATES_API_KEY = os.getenv('EAP_OPENEXCHANGERATES_API_KEY',
-                                      'cd4f8092337f41b8a12da232d1191317')
-
+# *** Django pure pagination
+# https://github.com/jamespacileo/django-pure-pagination
 PAGINATION_SETTINGS = {
     'PAGE_RANGE_DISPLAYED': 3,
     'MARGIN_PAGES_DISPLAYED': 2,
@@ -211,7 +223,29 @@ PAGINATION_SETTINGS = {
 }
 
 
-# Static files (CSS, JavaScript, Images)
+# *** Celery
+# http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
+BROKER_URL = os.getenv('EAP_CELERY_BROKER_URL', 'redis://localhost:6379')
+CELERY_RESULT_BACKEND = os.getenv('EAP_CELERY_RESULT_BACKEND', 'redis://localhost:6379')
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = os.getenv('EAP_CELERY_TIMEZONE', 'Africa/Nairobi')
+
+
+# *** CKEditor
+# https://github.com/django-ckeditor/django-ckeditor
+CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+
+
+# *** Solr thumbnail
+# http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
+THUMBNAIL_DUMMY = True
+THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
+THUMBNAIL_REDIS_HOST = 'redis'
+
+
+# *** Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -226,25 +260,9 @@ STATICFILES_DIRS = (
     (THEME_PREFIX, os.path.join(BASE_DIR, 'templates/{}/static'.format(THEME_PREFIX))),
 )
 
-# Solr thumbnail
-# http://sorl-thumbnail.readthedocs.org/en/latest/reference/settings.html
-THUMBNAIL_DUMMY = True
-THUMBNAIL_KVSTORE = 'sorl.thumbnail.kvstores.redis_kvstore.KVStore'
-THUMBNAIL_REDIS_HOST = 'redis'
 
-
-# Celery
-BROKER_URL = os.getenv('EAP_CELERY_BROKER_URL', 'redis://localhost:6379')
-CELERY_RESULT_BACKEND = os.getenv('EAP_CELERY_RESULT_BACKEND', 'redis://localhost:6379')
-CELERY_ACCEPT_CONTENT = ['application/json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = os.getenv('EAP_CELERY_TIMEZONE', 'Africa/Nairobi')
-
-# CKEditor
-CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-
-# Static & Media files (AWS)
+# *** AWS Storage for static and media files (CSS, JavaScript, Images)
+# http://django-storages.readthedocs.io/en/latest/
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 STATICFILES_STORAGE = 'eap.contrib.custom_storages.StaticStorage'
