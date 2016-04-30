@@ -13,10 +13,6 @@ import os
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
-
-print(BASE_DIR)
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.9/howto/deployment/checklist/
 
@@ -64,6 +60,9 @@ INSTALLED_APPS = (
     # 'allauth.socialaccount.providers.google',
     # 'allauth.socialaccount.providers.github',
 
+    # custom extensions
+    'eap.extensions.elasticdjango',
+
     # custom apps
     'eap.apps.localization',
     'eap.apps.brand',
@@ -91,7 +90,7 @@ ROOT_URLCONF = 'eap.urls'
 
 # env variable to select theme template. Defaults to music.
 THEME_PREFIX = os.getenv('EAP_THEME_PREFIX', 'music')
-print(os.path.join(BASE_DIR, 'templates/{}'.format(THEME_PREFIX)))
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -151,6 +150,21 @@ HAYSTACK_CONNECTIONS = {
         'URL': os.getenv('EAP_HC_DEFAULT_URL', 'http://localhost:8080/solr')
     },
 }
+
+# Elasticsearch search engine
+ELASTICDJANGO_CONNECTIONS = {
+    'default': {
+        'hosts': 'elasticsearch:9200'
+    },
+}
+
+ELASTICDJANGO_INDEX = 'eap'
+
+ELASTICDJANGO_INDEX_SETTINGS = {
+    'number_of_shards': 1,
+    'number_of_replicas': 0,
+}
+
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -236,6 +250,7 @@ AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
     'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
     'Cache-Control': 'max-age=94608000',
 }
+
 AWS_STATIC_STORAGE_BUCKET_NAME = 'static.musicianstash.com'
 AWS_MEDIA_STORAGE_BUCKET_NAME = 'media.musicianstash.com'
 AWS_S3_STATIC_CUSTOM_DOMAIN = '{}.s3.amazonaws.com'.format(AWS_STATIC_STORAGE_BUCKET_NAME)
