@@ -13,8 +13,8 @@ build/
 develop-eggs/
 dist/
 downloads/
+app/eap/static/
 media/
-static/
 eggs/
 .eggs/
 lib/
@@ -77,7 +77,7 @@ target/
 celerybeat-schedule
 
 # dotenv
-.env
+# .env
 
 # virtualenv
 venv/
