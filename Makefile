@@ -1,5 +1,5 @@
-.PHONY: build startb start remove status dev migrate createsuperuser updaterates bash syncindex \
-		testindex collectstatic elasticsearch adminer
+.PHONY: build startb start remove status dev migrate makemigrations createsuperuser updaterates \
+		bash syncindex testindex collectstatic elasticsearch adminer
 
 build:
 	docker-compose build app
@@ -21,6 +21,9 @@ dev:
 
 migrate:
 	docker-compose run app /usr/local/bin/python manage.py migrate
+
+makemigrations:
+	docker-compose run app /usr/local/bin/python manage.py makemigrations
 
 createsuperuser:
 	docker-compose run app /usr/local/bin/python manage.py createsuperuser
