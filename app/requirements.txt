@@ -19,6 +19,7 @@ django-smart-selects==1.2.2
 django-storages==1.4.1
 django-suit==0.2.18
 Django==1.9.5
+elasticsearch-dsl==2.0.0
 gunicorn==19.4.5
 Jinja2==2.8
 kombu==3.0.35
