@@ -14,7 +14,7 @@ develop-eggs/
 dist/
 downloads/
 app/eap/static/
-media/
+app/eap/media/
 eggs/
 .eggs/
 lib/
