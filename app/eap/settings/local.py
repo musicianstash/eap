@@ -31,6 +31,8 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
 
+THUMBNAIL_DEBUG = True
+
 STATIC_URL = os.getenv('EAP_STATIC_URL', '/static/')
 MEDIA_URL = os.getenv('EAP_MEDIA_URL', '/media/')
 
