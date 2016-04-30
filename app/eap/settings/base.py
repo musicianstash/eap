@@ -244,7 +244,7 @@ CELERY_TIMEZONE = os.getenv('EAP_CELERY_TIMEZONE', 'Africa/Nairobi')
 # CKEditor
 CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
 
-# AWS
+# Static & Media files (AWS)
 AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
 STATICFILES_STORAGE = 'eap.contrib.custom_storages.StaticStorage'
@@ -270,4 +270,3 @@ AWS_QUERYSTRING_AUTH = False
 # disable https for cross site problems
 AWS_S3_SECURE_URLS = False
 AWS_PRELOAD_METADATA = True
-
