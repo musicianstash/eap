@@ -4,6 +4,5 @@ from django.conf.urls import url
 from . import views  # noqa
 
 urlpatterns = [
-    url(r'^(?P<method>[a-zA-Z0-9.-_]+)/$', jsonrpc_site.dispatch),
     url(r'^$', jsonrpc_site.dispatch, name="jsonrpc_mountpoint"),
 ]
