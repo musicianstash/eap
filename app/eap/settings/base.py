@@ -168,16 +168,6 @@ CACHES = {
 }
 
 
-# *** Haystack search engine
-# http://django-haystack.readthedocs.org/en/latest/toc.html
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': os.getenv('EAP_HC_DEFAULT_URL', 'http://localhost:8080/solr')
-    },
-}
-
-
 # *** Auth
 # https://docs.djangoproject.com/es/1.9/topics/auth/customizing/
 AUTHENTICATION_BACKENDS = (
