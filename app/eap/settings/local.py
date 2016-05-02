@@ -11,7 +11,7 @@ COMPRESS_ENABLED = False
 COMPRESS_REBUILD_TIMEOUT = 1
 
 INSTALLED_APPS += (
-    'debug_toolbar'
+    'debug_toolbar',
 )
 
 DEBUG_TOOLBAR_PANELS = [
