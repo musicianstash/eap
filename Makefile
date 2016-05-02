@@ -20,16 +20,16 @@ status:
 	docker-compose ps
 
 migrate:
-	docker-compose run app /usr/local/bin/python manage.py migrate
+	docker-compose run eap /usr/local/bin/python manage.py migrate
 
 makemigrations:
-	docker-compose run app /usr/local/bin/python manage.py makemigrations
+	docker-compose run eap /usr/local/bin/python manage.py makemigrations
 
 createsuperuser:
-	docker-compose run app /usr/local/bin/python manage.py createsuperuser
+	docker-compose run eap /usr/local/bin/python manage.py createsuperuser
 
 updaterates:
-	docker-compose run app /usr/local/bin/python manage.py update_rates
+	docker-compose run eap /usr/local/bin/python manage.py update_rates
 
 bash:
 	docker-compose run eap /bin/bash
