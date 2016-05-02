@@ -30,7 +30,7 @@ def save_spider_item(item_data):
     color = get_spider_item_color_id_from_color_name(item_data['color'])
     category = get_spider_item_category_id_from_classifiers(item_data['classifiers'])
 
-    item = get_or_create_item(item_data['code'])
+    item = get_or_create_item(item_data['unique_code'])
     item.store = store
     item.brand = brand
     item.color = color
@@ -49,12 +49,12 @@ def save_spider_item(item_data):
     logger.info('Spider item with id: {} saved!'.format(item.id))
 
 
-def get_or_create_item(code):
+def get_or_create_item(unique_code):
     try:
         # item already exists
-        return Item.objects.get(spider_code=code)
+        return Item.objects.get(spider_code=unique_code)
     except:
-        return Item(spider_code=code)
+        return Item(spider_code=unique_code)
 
 
 def create_url_slug(brand, name, color):
