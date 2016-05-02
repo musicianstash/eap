@@ -48,7 +48,7 @@ Test out application:
 Access adminer on the following url:
 [http://localhost:9000/?pgsql=postgres&username=eap&db=eap&ns=public](http://localhost:9000/?pgsql=postgres&username=eap&db=eap&ns=public)
 
--  enter as password `eap`
+- enter as password `eap`
 - login and manage your database :)
 
 #### Docker-Django documentation
