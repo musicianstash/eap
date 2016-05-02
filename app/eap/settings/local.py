@@ -11,13 +11,11 @@ COMPRESS_ENABLED = False
 COMPRESS_REBUILD_TIMEOUT = 1
 
 INSTALLED_APPS += (
-    'debug_toolbar',
-    'haystack_panel'
+    'debug_toolbar'
 )
 
 DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.sql.SQLPanel',
-    'haystack_panel.panel.HaystackDebugPanel',
     'debug_toolbar.panels.cache.CachePanel',
     'debug_toolbar.panels.versions.VersionsPanel',
     'debug_toolbar.panels.timer.TimerPanel',

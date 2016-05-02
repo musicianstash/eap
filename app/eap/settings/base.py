@@ -51,7 +51,6 @@ INSTALLED_APPS = (
     # external apps
     'ckeditor',
     'compressor',
-    'haystack',
     'jsonrpc',
     'mptt',
     'sorl.thumbnail',
