@@ -6,12 +6,13 @@ from .models import Currency
 
 
 class CurrencyDoc(DocType):
+    created_at = field.Date()
     code = field.String()
     prefix = field.String()
     name = field.String()
 
     class Meta:
-        index = 'dps'
+        index = 'eap_currency'
         doc_type = 'currency'
 
     @classmethod

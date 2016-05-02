@@ -5,6 +5,7 @@ from .models import Item
 
 
 class ItemDoc(Document):
+    created_at = field.Date()
     name = field.String()
     slug = field.String()
     description = field.String()
@@ -22,7 +23,7 @@ class ItemDoc(Document):
     store = field.String()
 
     class Meta:
-        index = 'dps'
+        index = 'eap_item'
         doc_type = 'item'
     #
     # @classmethod
