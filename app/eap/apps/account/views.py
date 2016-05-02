@@ -1,4 +1,4 @@
-from django.core.context_processors import csrf
+from django.template.context_processors import csrf
 from django.views.generic import View
 from django.http import *
 from django.shortcuts import render
