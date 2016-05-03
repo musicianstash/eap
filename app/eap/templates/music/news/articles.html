@@ -60,14 +60,13 @@
             <div class="row">
                 <div class="col-md-10 col-centered blog-left">
                     <div class="bl-inner">
-                        {% for item in items %}
+                        {% for article in articles %}
                         <div class="item-blog-post">
                             <div class="post-header clearfix">
-                                <h2 class="wow  fadeIn  " data-wow-duration="0.2s"><a href="article.html"> The 14
-                                    Fashion Blogger Instagrams to Follow Now </a></h2>
+                                <h2 class="wow  fadeIn  " data-wow-duration="0.2s"><a href="article.html">{{ article.title }}</a></h2>
 
-                                <div class="post-info"> by <span><a class="userBy">Detti S.</a></span> on
-                                    <span>Mar 24, 2015</span>
+                                <div class="post-info"> by <span><a class="userBy">{{ article.publisher.get_full_name|default:article.publisher.username }}</a></span> on
+                                    <span>{{ article.published_at|date }}</span>
 
                                     <div class="share-gallery pull-right no-float-xs"><a class="share-facebook"> <i
                                             class="fa fa-facebook-f"> </i> </a> <a class="share-twitter"
@@ -84,12 +83,7 @@
                                         href="article.html"> <img src="images/blog/unnamed2.jpg" class="img-responsive"
                                                                   alt="G"> </a></div>
                                 <div class="post-description  wow fadeInDown  " data-wow-duration="0.2s">
-                                    <p>Content creation is central to your inbound marketing success, but as your volume
-                                        of written content increases, inconsistencies are also bound to arise.
-                                        Whether due to lack of clarity in your own head about the style with which you
-                                        want to write, or disjointed communication across the content creators in your
-                                        organization, failure to decide upon and document accepted editorial guidelines
-                                        is a recipe for inconsistent messaging and an incoherent brand experience.</p>
+                                    {{ article.content }}
                                     <a href="article.html" class="btn btn-more"> See More <i
                                             class="fa fa-long-arrow-right"></i> </a>
                                 </div>
@@ -99,121 +93,6 @@
                         {% empty %}
                             <h2>Sorry, no results found.</h2>
                         {% endfor %}
-
-
-
-                        <div class="item-blog-post">
-                            <div class="post-header clearfix">
-                                <h2 class=" wow fadeInDown  " data-wow-duration="0.2s"><a href="article.html"> The 14
-                                    Fashion Blogger Instagrams to Follow Now </a></h2>
-
-                                <div class="post-info"> by <span><a class="userBy">Detti S.</a></span> on
-                                    <span>Mar 24, 2015</span>
-
-                                    <div class="share-gallery pull-right no-float-xs "><a class="share-facebook"> <i
-                                            class="fa fa-facebook-f"> </i> </a> <a class="share-twitter"
-                                                                                   href="http://facebook.com"> <i
-                                            class="fa fa-twitter"> </i> </a> <a class="share-pinterest"
-                                                                                href="http://facebook.com"> <i
-                                            class="fa fa-pinterest-p"> </i> </a>
-                                        <a class="share-email" href="#"> <i class="fa fa-envelope-o"> </i> </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-main-view">
-                                <div class="post-lead-image  wow fadeInDown  " data-wow-duration="0.2s"><a
-                                        href="article.html"> <img src="images/blog/unnamed3.jpg" class="img-responsive"
-                                                                  alt="G"> </a></div>
-                                <div class="post-description  wow fadeInDown  " data-wow-duration="0.2s">
-                                    <p>Content creation is central to your inbound marketing success, but as your volume
-                                        of written content increases, inconsistencies are also bound to arise.
-                                        Whether due to lack of clarity in your own head about the style with which you
-                                        want to write, or disjointed communication across the content creators in your
-                                        organization, failure to decide upon and document accepted editorial guidelines
-                                        is a recipe for inconsistent messaging and an incoherent brand experience.</p>
-                                    <a href="article.html" class="btn btn-more"> See More <i
-                                            class="fa fa-long-arrow-right"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/.item-blog-post-->
-
-                        <div class="item-blog-post">
-                            <div class="post-header clearfix">
-                                <h2><a href="article.html">The 14 Fashion Blogger Instagrams to Follow Now </a></h2>
-
-                                <div class="post-info"> by <span><a class="userBy">Detti S.</a></span> on
-                                    <span>Mar 24, 2015</span>
-
-                                    <div class="share-gallery pull-right no-float-xs"><a class="share-facebook"> <i
-                                            class="fa fa-facebook-f"> </i> </a> <a class="share-twitter"
-                                                                                   href="http://facebook.com"> <i
-                                            class="fa fa-twitter"> </i> </a> <a class="share-pinterest"
-                                                                                href="http://facebook.com"> <i
-                                            class="fa fa-pinterest-p"> </i> </a>
-                                        <a class="share-email" href="#"> <i class="fa fa-envelope-o"> </i> </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-main-view">
-                                <div class="post-lead-image  wow fadeInDown  " data-wow-duration="0.2s"><a
-                                        href="article.html">
-
-                                    <!-- 16:9 aspect ratio -->
-                                    <div class="embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item"
-                                                src="https://www.youtube.com/embed/Ud77cIZiNsE"></iframe>
-                                    </div>
-                                </a></div>
-                                <div class="post-description  wow fadeInDown  " data-wow-duration="0.2s">
-                                    <p>Content creation is central to your inbound marketing success, but as your volume
-                                        of written content increases, inconsistencies are also bound to arise.
-                                        Whether due to lack of clarity in your own head about the style with which you
-                                        want to write, or disjointed communication across the content creators in your
-                                        organization, failure to decide upon and document accepted editorial guidelines
-                                        is a recipe for inconsistent messaging and an incoherent brand experience.</p>
-                                    <a href="article.html" class="btn btn-more"> See More <i
-                                            class="fa fa-long-arrow-right"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/.item-blog-post-->
-
-                        <div class="item-blog-post">
-                            <div class="post-header clearfix">
-                                <h2><a href="article.html"> The 14 Fashion Blogger Instagrams to Follow Now </a></h2>
-
-                                <div class="post-info"> by <span><a class="userBy">Detti S.</a></span> on
-                                    <span>Mar 24, 2015</span>
-
-                                    <div class="share-gallery pull-right no-float-xs"><a class="share-facebook"> <i
-                                            class="fa fa-facebook-f"> </i> </a> <a class="share-twitter"
-                                                                                   href="http://facebook.com"> <i
-                                            class="fa fa-twitter"> </i> </a> <a class="share-pinterest"
-                                                                                href="http://facebook.com"> <i
-                                            class="fa fa-pinterest-p"> </i> </a>
-                                        <a class="share-email" href="#"> <i class="fa fa-envelope-o"> </i> </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="post-main-view">
-                                <div class="post-lead-image  wow fadeInDown  " data-wow-duration="0.2s"><a
-                                        href="post-details.html"> <img src="images/blog/unnamed.jpg" class="img-responsive"
-                                                                       alt="G"> </a></div>
-                                <div class="post-description  wow fadeInDown  " data-wow-duration="0.2s">
-                                    <p>Content creation is central to your inbound marketing success, but as your volume
-                                        of written content increases, inconsistencies are also bound to arise.
-                                        Whether due to lack of clarity in your own head about the style with which you
-                                        want to write, or disjointed communication across the content creators in your
-                                        organization, failure to decide upon and document accepted editorial guidelines
-                                        is a recipe for inconsistent messaging and an incoherent brand experience.</p>
-
-                                    <a href="article.html" class="btn btn-more"> See More <i
-                                            class="fa fa-long-arrow-right"></i> </a>
-                                </div>
-                            </div>
-                        </div>
-                        <!--/.item-blog-post-->
 
                         <div class="loadMoreBlog clearfix text-center"><a class="btn  btn-block"> LOAD MORE </a></div>
                     </div>
