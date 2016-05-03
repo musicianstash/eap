@@ -18,6 +18,7 @@ urlpatterns = [
     # used by custom apps
     # url(r'^account/', include('eap.apps.account.urls')),
     url(r'^catalog/', include('eap.apps.catalog.urls')),
+    url(r'^news/', include('eap.apps.news.urls')),
     url(r'^apiv1/', include('eap.apps.api.urls')),
 
     url(r'^', include('eap.apps.home.urls')),
