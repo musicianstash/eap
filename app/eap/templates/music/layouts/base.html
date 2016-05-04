@@ -27,6 +27,10 @@
     <link href="{% static "music/css/style.css" %}" rel="stylesheet">
     <link href="{% static "music/css/home-v7.css" %}" rel="stylesheet">
     <link href="{% static "music/css/skin-black.css" %}" rel="stylesheet">
+
+    <!-- Additional styles in templates that extend this template -->
+    {% block styles %}{% endblock styles %}
+
     {% endcompress %}
 
     <!-- Just for debugging purposes. -->

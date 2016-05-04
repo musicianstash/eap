@@ -17,7 +17,7 @@ class ArticleForm(forms.ModelForm):
             'created_at': SuitSplitDateTimeWidget,
             'updated_at': SuitSplitDateTimeWidget,
         }
-        fields = ['title', 'content', 'category', 'publisher', 'status', 'published_at']
+        fields = ['title', 'slug', 'content', 'category', 'publisher', 'status', 'published_at']
 
 
 class ArticleImageInline(admin.TabularInline):
@@ -27,6 +27,7 @@ class ArticleImageInline(admin.TabularInline):
 class ArticleAdmin(SortableModelAdmin):
     inlines = (ArticleImageInline,)
     form = ArticleForm
+    prepopulated_fields = {'slug': ('title',)}
     radio_fields = {'status': admin.HORIZONTAL}
     sortable = 'order'
 

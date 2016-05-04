@@ -5,8 +5,6 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.views.generic.list import ListView
 
-from django.views.generic.list import MultipleObjectMixin
-
 
 class ArticleView(View):
     template_name = 'news/article.html'
@@ -21,8 +19,5 @@ class ArticleView(View):
 
 class ArticlesListView(ListView):
     model = Article
-    queryset = Article.objects.all()
+    context_object_name = 'articles'
     template_name = 'news/articles.html'
-
-    def get_context_data(self, **kwargs):
-        return super(ArticlesListView, self).get_context_data(**{'context_object_name': 'articles'})

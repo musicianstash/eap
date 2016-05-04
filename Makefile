@@ -35,7 +35,7 @@ bash:
 	docker-compose run eap /bin/bash
 
 shell:
-    docker-compose run eap /usr/local/bin/python manage.py shell
+	docker-compose run eap /usr/local/bin/python manage.py shell
 
 syncindex:
 	docker-compose run eap /usr/local/bin/python manage.py sync_index
