@@ -31,6 +31,7 @@ class Article(models.Model):
     """Model holds news article"""
     category = models.ForeignKey(ArticleCategory, related_name='category', on_delete=models.PROTECT)
     content = models.TextField()
+    excerpt = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     published_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)

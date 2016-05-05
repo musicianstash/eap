@@ -17,7 +17,7 @@ class ArticleForm(forms.ModelForm):
             'created_at': SuitSplitDateTimeWidget,
             'updated_at': SuitSplitDateTimeWidget,
         }
-        fields = ['title', 'slug', 'content', 'category', 'publisher', 'status', 'published_at']
+        fields = ['title', 'slug', 'content', 'excerpt', 'category', 'publisher', 'status', 'published_at']
 
 
 class ArticleImageInline(admin.TabularInline):

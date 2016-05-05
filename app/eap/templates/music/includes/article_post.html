@@ -1,0 +1,44 @@
+{% load thumbnail %}
+
+<div class="item-blog-post">
+    <div class="post-header clearfix">
+        <h2 class="wow fadeIn" data-wow-duration="0.2s"><a href="{% url 'article' article.slug %}">{{ article.title }}</a></h2>
+        <div class="post-info"> by <span><a class="userBy">{{ article.publisher.get_full_name|default:article.publisher.username }}</a></span> on
+            <span>{{ article.published_at|date }}</span>
+            <div class="share-gallery pull-right no-float-xs"><a class="share-facebook">
+                <i class="fa fa-facebook-f"></i></a><a class="share-twitter" href="http://facebook.com">
+                <i class="fa fa-twitter"> </i> </a> <a class="share-pinterest" href="http://facebook.com">
+                <i class="fa fa-pinterest-p"></i></a><a class="share-email" href="#">
+                <i class="fa fa-envelope-o"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="post-main-view">
+        {% if article.has_images %}
+        <div class="post-lead-image wow fadeInDown" data-wow-duration="0.2s">
+            <a href="{% url 'article' article.slug %}">
+                <img src="{{ article.first_image.image.url }}" class="img-responsive" alt="{{ article.first_image.image.alt }}">
+            </a>
+        </div>
+        {% endif %}
+        <div class="post-description wow fadeInDown" data-wow-duration="0.2s">
+            {{ description|safe }}
+        </div>
+        {% if not details %}
+        <a href="{% url 'article' article.slug %}" class="btn btn-more">See More<i class="fa fa-long-arrow-right"></i></a>
+        {% endif %}
+    </div>
+    {% if details %}
+    <div class="col-lg-6 col-md-6 col-sm-6">
+        <div class="main-image sp-wrap col-lg-12 no-padding">
+            {% for image in article.images.all %}
+                <a href="{% thumbnail image.image "593x722" as img %}{{ img.url }}{% endthumbnail %}">
+                    {% thumbnail image.image "593x722" as img %}
+                        <img class="img-responsive" alt="img" src="{{ img.url }}">
+                    {% endthumbnail %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>

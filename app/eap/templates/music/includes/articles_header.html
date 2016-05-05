@@ -1,0 +1,51 @@
+{% load staticfiles %}
+<section class="blog-intro parallaxOffset parallaxbg"
+         style="background: url({% static "music/images/news/blogbg.jpg" %}) no-repeat 50% -86px fixed; background-size: cover">
+    <div class="display-table relative5 hw100">
+        <div class="display-table-cell hw100 relative">
+            <div class="container blogIntroContent zindex10 relative scrollme">
+                <div class="row">
+                    <div class="wow fadeInDown introContent text-center">
+                        <h1 class="x2large">NEWS</h1>
+                        <h5 class="parallaxSubtitle">The latest news, advice and comment.</h5>
+                        <div class="subscribe-dropdown">
+                            <div class="dropdown"><a class="btn btn-subscribe dropdown-toggle" id="dropdownMenu1"
+                                                     data-toggle="dropdown" aria-expanded="true">Subscribe</a>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                    <li>
+                                        <div>
+                                            <label>
+                                                <input name="option1" value="option1" type="checkbox">
+                                                &nbsp; Latest News </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <label>
+                                                <input name="option2" value="option2" type="checkbox">
+                                                &nbsp; New Product </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <label>
+                                                <input name="option3" value="option3" type="checkbox">
+                                                &nbsp; Offer </label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <input placeholder="Enter Your Email" id="subemail" name="subemail"
+                                               type="text"/>
+                                    </li>
+                                    <li><a href="#" class="btn btn-block">Subscribe</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="overlay-shade"></div>
+    <div class="background-overly g6"></div>
+</section>
