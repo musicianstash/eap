@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 
-from eap.apps.api.tasks import save_spider_item
+from eap.apps.sync.item import save_crawler_item
 from jsonrpc import jsonrpc_method
 
 
@@ -9,6 +9,6 @@ from jsonrpc import jsonrpc_method
 def add_item(request, item_json):
     item_data = json.loads(item_json)
     print(item_data['name'])
-    # save_spider_item.apply(item_data)
-    # save_spider_item(item_data)
+    # save_crawler_item.apply(item_data)
+    # save_crawler_item(item_data)
     return True
