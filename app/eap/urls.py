@@ -1,6 +1,6 @@
 """eap URL Configuration
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/1.8/topics/http/urls/
+    https://docs.djangoproject.com/en/1.9/topics/http/urls/
 """
 from django.conf import settings
 from django.conf.urls import patterns, include, url
@@ -19,7 +19,7 @@ urlpatterns = [
     # url(r'^account/', include('eap.apps.account.urls')),
     url(r'^catalog/', include('eap.apps.catalog.urls')),
     url(r'^news/', include('eap.apps.news.urls')),
-    url(r'^apiv1/', include('eap.apps.api.urls')),
+    url(r'^sync/', include('eap.apps.sync.urls')),
 
     url(r'^', include('eap.apps.home.urls')),
 ]

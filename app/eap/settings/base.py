@@ -74,7 +74,7 @@ INSTALLED_APPS = (
     'eap.apps.brand',
     'eap.apps.catalog',
     'eap.apps.store',
-    'eap.apps.api',
+    'eap.apps.sync',
     'eap.apps.home',
     'eap.apps.news',
 )
