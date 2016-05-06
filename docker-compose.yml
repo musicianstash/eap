@@ -3,7 +3,6 @@ version: '2'
 
 services:
   eap:
-    restart: always
     container_name: eap
     build: ./app
     ports:
@@ -43,6 +42,7 @@ services:
       - redisdata:/data
 
   elasticsearch:
+    restart: always
     container_name: elasticsearch
     image: elasticsearch:2.3.2
     ports:
