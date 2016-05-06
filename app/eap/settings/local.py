@@ -36,3 +36,7 @@ MEDIA_URL = os.getenv('EAP_MEDIA_URL', '/media/')
 
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+
+TEST_CRAWL_DATA = {
+    'guitars': 'https://www.dropbox.com/s/v6gkp3zf0we4z0a/music_items.json?dl=1'
+}
