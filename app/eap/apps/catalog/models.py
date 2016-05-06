@@ -82,8 +82,8 @@ class Item(models.Model):
     spider_code = models.CharField(max_length=128, blank=True)
 
     # Description fields
-    name = models.CharField(max_length=64)
-    slug = models.SlugField(max_length=64)
+    name = models.CharField(max_length=128)
+    slug = models.SlugField(max_length=128)
     description = models.TextField(blank=True)
     color = models.ForeignKey(Color, null=True)
 
