@@ -22,3 +22,4 @@ class ArticlesListView(ListView):
     model = Article
     context_object_name = 'articles'
     template_name = 'news/articles.html'
+    paginate_by = 2
