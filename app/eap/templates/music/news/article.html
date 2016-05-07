@@ -1,4 +1,5 @@
 {% extends "layouts/base.html" %}
+{% load thumbnail %}
 {% load staticfiles %}
 
 {% block styles %}
@@ -17,26 +18,18 @@
                         <div class="RecommendedBlog clearfix text-center">
                             <div class="h2 RecommendedTitle">Recommended</div>
                             <div class="row">
+                                {% for article in recommended_articles %}
                                 <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
-                                    <div class="blog-rc-item"><a href="article.html"> <span class="rcimg"><img
-                                            src="images/blog/unnamed.jpg" class="img-responsive" alt="img"></span> <span
-                                            class="h4">Cras rutrum diam velit, id ullamcorper turpis</span> </a></div>
+                                <div class="blog-rc-item">
+                                    <a href="{% url 'article' article.slug %}">
+                                    <span class="rcimg">
+                                        {% thumbnail article.first_image.image "593x722" as img %}
+                                            <img class="img-responsive" alt="{{ img.alt }}" src="{{ img.url }}" class="img-responsive">
+                                        {% endthumbnail %}
+                                    </span>
+                                    <span class="h4">{{ article.title }}</span></a></div>
                                 </div>
-                                <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
-                                    <div class="blog-rc-item"><a href="article.html"> <span class="rcimg"><img
-                                            src="images/blog/unnamed2.jpg" class="img-responsive" alt="img"></span> <span
-                                            class="h4">Cras rutrum diam velit, id ullamcorper turpis</span> </a></div>
-                                </div>
-                                <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
-                                    <div class="blog-rc-item"><a href="article.html"> <span class="rcimg"> <img
-                                            src="images/blog/unnamed3.jpg" class="img-responsive" alt="img"></span> <span
-                                            class="h4">Cras rutrum diam velit, id ullamcorper turpis</span> </a></div>
-                                </div>
-                                <div class="col-md-3 col-sm-4 col-xs-6 col-xxs-12">
-                                    <div class="blog-rc-item"><a href="article.html"> <span class="rcimg"><img
-                                            src="images/blog/unnamed4.jpg" class="img-responsive" alt="img"></span> <span
-                                            class="h4">Cras rutrum diam velit, id ullamcorper turpis</span> </a></div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>

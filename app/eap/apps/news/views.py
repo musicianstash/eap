@@ -11,7 +11,8 @@ class ArticleView(View):
 
     def get(self, request, slug):
         context = {
-            'article': Article.objects.get(slug=slug)
+            'article': Article.objects.get(slug=slug),
+            'recommended_articles': Article.objects.all()[:4]
         }
 
         return render(request, self.template_name, context=context)
