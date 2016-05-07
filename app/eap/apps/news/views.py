@@ -11,7 +11,8 @@ class ArticleView(View):
 
     def get(self, request, slug):
         context = {
-            'article': Article.objects.get(slug=slug)
+            'article': Article.objects.get(slug=slug),
+            'recommended_articles': Article.objects.all()[:4]
         }
 
         return render(request, self.template_name, context=context)
@@ -21,3 +22,4 @@ class ArticlesListView(ListView):
     model = Article
     context_object_name = 'articles'
     template_name = 'news/articles.html'
+    paginate_by = 2
