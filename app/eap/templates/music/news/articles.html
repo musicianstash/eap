@@ -19,38 +19,8 @@
                         {% empty %}
                             <h2>Sorry, no results found.</h2>
                         {% endfor %}
-                        <!--TODO: Use django-pure-pagination -->
                         <div class="w100 categoryFooter">
-                            <div class="pagination pull-left no-margin-top">
-                                <ul class="pagination no-margin-top">
-                                    <li><a href="?page={{ articles.previous_page_number }}">«</a></li>
-                                    <li><a href="#"></a></li>
-                                    <li class="active"><a href="#">{{ articles.number }}</a></li>
-                                    <li><a href="#">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li><a href="#">4</a></li>
-                                    <li><a href="#">5</a></li>
-                                    <li><a href="#">»</a></li>
-                                </ul>
-                            </div>
-                            <div class="pull-right pull-right col-sm-4 col-xs-12 no-padding text-right text-left-xs">
-                                <p>Showing 1–450 of 12 results</p>
-                            </div>
-                        </div>
-                        <div class="pagination">
-                            <span class="step-links">
-                                {% if articles.has_previous %}
-                                    <a href="?page={{ articles.previous_page_number }}">previous</a>
-                                {% endif %}
-
-                                <span class="current">
-                                    Page {{ articles.number }} of {{ articles.paginator.num_pages }}.
-                                </span>
-
-                                {% if articles.has_next %}
-                                    <a href="?page={{ articles.next_page_number }}">next</a>
-                                {% endif %}
-                            </span>
+                            {% include "includes/pagination.html" %}
                         </div>
                     </div>
                 </div>

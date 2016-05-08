@@ -5,6 +5,8 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.views.generic.list import ListView
 
+from pure_pagination.mixins import PaginationMixin
+
 
 class ArticleView(View):
     template_name = 'news/article.html'
@@ -18,8 +20,8 @@ class ArticleView(View):
         return render(request, self.template_name, context=context)
 
 
-class ArticlesListView(ListView):
+class ArticlesListView(PaginationMixin, ListView):
     model = Article
     context_object_name = 'articles'
     template_name = 'news/articles.html'
-    paginate_by = 2
+    paginate_by = 10
