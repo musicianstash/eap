@@ -65,6 +65,7 @@ class ArticleImage(models.Model):
     """Model holds images for news article"""
     article = models.ForeignKey(Article, related_name='images', on_delete=models.CASCADE)
     alt = models.CharField(max_length=255)
+    title = models.CharField(max_length=255)
     image = models.ImageField(upload_to='articles')
 
 

@@ -4,6 +4,13 @@
 
 {% block styles %}
     <link href="{% static "music/css/news.css" %}" rel="stylesheet">
+    <link href="{% static "music/css/blueimp-gallery.min.css" %}" rel="stylesheet">
+    <link href="{% static "music/css/bootstrap-image-gallery.min.css" %}" rel="stylesheet">
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "music/js/jquery.blueimp-gallery.min.js" %}"></script>
+    <script src="{% static "music/js/bootstrap-image-gallery.min.js" %}"></script>
 {% endblock %}
 
 {% block content %}
