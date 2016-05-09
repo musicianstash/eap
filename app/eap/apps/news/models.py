@@ -60,7 +60,6 @@ class Article(models.Model):
         return self.title
 
 
-
 class ArticleImage(models.Model):
     """Model holds images for news article"""
     article = models.ForeignKey(Article, related_name='images', on_delete=models.CASCADE)
