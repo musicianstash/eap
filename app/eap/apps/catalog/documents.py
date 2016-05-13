@@ -33,7 +33,7 @@ class ItemDoc(DocType):
 
     @classmethod
     def sync_index(cls):
-        for model in Item.objects.all().iterator():
+        for model in Item.objects.filter(status=2).iterator():
             cls.sync(model)
 
     @classmethod
