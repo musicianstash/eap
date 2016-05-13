@@ -1,5 +1,6 @@
 .PHONY: build app start remove down status migrate makemigrations createsuperuser \
-		updaterates worker bash syncindex testindex collectstatic elasticsearch adminer pyclean
+		updaterates worker bash syncindex testindex collectstatic elasticsearch \
+		importcrawlertestitemsadminer pyclean
 
 build:
 	docker-compose build eap
@@ -33,6 +34,9 @@ createsuperuser:
 
 updaterates:
 	docker-compose run eap /usr/local/bin/python manage.py update_rates
+
+importcrawlertestitems:
+	docker-compose run eap /usr/local/bin/python manage.py import_test_crawler_items
 
 worker:
 	docker-compose run eap celery -A eap.celery worker -l info
