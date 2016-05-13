@@ -10,13 +10,14 @@ jQuery(function ($) {
 });
 jQuery(function ($) {
     "use strict";
-	var hiddenBut = $('header.variant4 .navbar-secondary-menu .btn-group.btn-hidden'),
-		hiddenWidth = 50,
-		animDiration = 300;
+	var hiddenBut = $('header.variant4 .navbar-secondary-menu .btn-group.btn-hidden');
+	var hiddenWidth = 50;
+	var animDiration = 300;
+
 	hiddenBut.hover(
 	function () {
         $(this).stop(true, false).animate({'width': $(this).prop('scrollWidth') }, animDiration , function(){ $(this).css({'overflow':'visible'})});
-		
+
 		$(this).delay(400).queue(function(){
 			$(this).addClass('open');
 			$(this).dequeue();
@@ -444,18 +445,7 @@ jQuery(function ($) {
         nextText: "",
         itemMargin: 0
     });
-    //    $(".products-widget").flexVSlider({
-    //        animation: "slide",
-    //        direction: "vertical",
-    //        move: 3,
-    //        keyboard: false,
-    //        controlNav: false,
-    //        animationLoop: false,
-    //		touch: false,
-    //        slideshow: false,
-    //        prevText: "",
-    //        nextText: ""
-    //    });
+
     var productWidget = $(".products-widget");
     productWidget.each(function () {
         var jcarousetItemsNumber = $(this).find("ul li").size();
@@ -477,18 +467,6 @@ jQuery(function ($) {
         }
     })
 
-
-    //    $(".products-list-small").flexslider({
-    //        animation: "slide",
-    //        keyboard: false,
-    //        controlNav: false,
-    //        animationLoop: false,
-    //        slideshow: false,
-    //        prevText: "",
-    //        nextText: "",
-    //        itemWidth: 80,
-    //        itemMargin: 16
-    //    })
 });
 jQuery(function ($) {
     "use strict";

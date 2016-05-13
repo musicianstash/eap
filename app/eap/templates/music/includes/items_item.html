@@ -1,0 +1,41 @@
+{% load thumbnail %}
+
+<div class="item col-sm-2 col-lg-2 col-md-2 col-xs-6">
+    <div class="product">
+        <div class="image">
+            <div class="quickview">
+                <a class="btn btn-xs btn-quickview" href="{% url 'item' result.slug %}">Detail view</a>
+            </div>
+            <a href="{% url 'item' result.slug %}">
+            {% thumbnail result.image "180x180" as img %}
+                <img class="img-responsive" alt="img" src="{{ img.url }}">
+            {% endthumbnail %}
+            </a>
+            <div class="promotion">
+                <span class="new-product"> NEW</span>
+                {% if result.discount %}
+                <span class="discount">{{ result.discount }}% OFF</span>
+                {% endif %}
+            </div>
+        </div>
+        <div class="description">
+            <h4>
+                <a href="{% url 'item' result.slug %}">
+                    <span>{{ result.brand }}</span>
+                    {{ result.name|truncatechars:40 }}
+                </a>
+            </h4>
+            <div class="list-description">
+                <p>{{ result.description|truncatechars:1000 }}</p>
+            </div>
+        </div>
+        <div class="price">
+            {% if result.discount %}
+            <span>{{ result.sale_price }}</span>
+            <span class="old-price">{{ result.price }}</span>
+            {% else %}
+            <span>{{ result.price }}</span>
+            {% endif %}
+        </div>
+    </div>
+</div>

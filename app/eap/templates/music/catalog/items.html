@@ -10,65 +10,16 @@
             <!--left column-->
             <div class="col-lg-2 col-md-3 col-sm-12">
                 <div class="panel-group" id="accordionNo">
-
-                    {% if category_facets %}
-                        {% include 'includes/items_filter_category.html' with filter_name='Category' category_filters=category_facets current_category_obj=category filter_active=True %}
-                    {% endif %}
-
-                    {% if facets.fields.brand %}
-                        {% include 'includes/items_filter.html' with filter_name='Brand' filter_values=facets.fields.brand filter_active=True %}
-                    {% endif %}
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title">
-                                <a class="collapseWill active " data-toggle="collapse" href="#collapsePrice">
-                                Price <span class="pull-left"> <i class="fa fa-caret-right"></i></span>
-                                </a>
-                                <span class="pull-right clearFilter  label-danger"> Clear </span></h4>
-                        </div>
-                        <div id="collapsePrice" class="panel-collapse collapse in">
-                            <div class="panel-body priceFilterBody">
-                                <form class="form-inline " role="form">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="exampleInputEmail2"
-                                               placeholder="2000 $">
-                                    </div>
-                                    <div class="form-group sp"> -</div>
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="exampleInputPassword2"
-                                               placeholder="3000 $">
-                                    </div>
-                                    <button type="submit" class="btn btn-default pull-right">check</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                    <!--/price panel end-->
-
-                    {% if facets.fields.rounded_discount %}
-                        {% include 'includes/items_filter.html' with filter_name='Discount' filter_type='discount' filter_values=facets.fields.rounded_discount filter_active=True %}
-                    {% endif %}
-
-                    {% if facets.fields.stock %}
-                        {% include 'includes/items_filter.html' with filter_name='Stock' filter_values=facets.fields.stock filter_active=True %}
-                    {% endif %}
-
-                    {% if facets.fields.color %}
-                        {% include 'includes/items_filter.html' with filter_name='Color' filter_values=facets.fields.color filter_active=True %}
-                    {% endif %}
-
-                    {% if facets.fields.store %}
-                        {% include 'includes/items_filter.html' with filter_name='Store' filter_values=facets.fields.store filter_active=True %}
-                    {% endif %}
-
+                    {% for facet_result in facet_results %}
+                        {% include 'includes/items_filter.html' with filter=facet_result %}
+                    {% endfor %}
                 </div>
             </div>
 
             <!--right column-->
             <div class="col-lg-10 col-md-9 col-sm-12">
                 <div class="w200 productFilter clearfix">
-                    <h2 class="pull-left">{{ category.name }}</h2>
+                    <h2 class="pull-left">{{ category.name }} ({{ object_list.hits.total }})</h2>
                     <div class="pull-right ">
                         {% if orderings %}
                         <div class="change-order pull-right">
@@ -90,40 +41,7 @@
                 <div class="row  categoryProduct xsResponse clearfix">
                     <!-- Display results... -->
                     {% for result in object_list %}
-                    <div class="item col-sm-2 col-lg-2 col-md-2 col-xs-6">
-                        <div class="product">
-                            <div class="image">
-                                <div class="quickview">
-                                    <a class="btn btn-xs btn-quickview" href="{% url 'item' result.slug %}">Detail view</a>
-                                </div>
-                                <a href="{% url 'item' result.slug %}">
-                                {% thumbnail result.image "180x180" as img %}
-                                    <img class="img-responsive" alt="img" src="{{ img.url }}">
-                                {% endthumbnail %}
-                                </a>
-                                <div class="promotion">
-                                    <span class="new-product"> NEW</span>
-                                    {% if result.discount %}
-                                    <span class="discount">{{ result.discount }}% OFF</span>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="description">
-                                <h4><a href="{% url 'item' result.slug %}">{{ result.name|truncatechars:30 }}</a></h4>
-                                <div class="list-description">
-                                    <p>{{ result.description|truncatechars:1000 }}</p>
-                                </div>
-                            </div>
-                            <div class="price">
-                                {% if result.discount %}
-                                <span>{{ result.sale_price }}</span>
-                                <span class="old-price">{{ result.original_price }}</span>
-                                {% else %}
-                                <span>{{ result.original_price }}</span>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
+                        {% include 'includes/items_item.html' with filter=facet_result %}
                     {% empty %}
                         <h2>Sorry, no results found.</h2>
                     {% endfor %}

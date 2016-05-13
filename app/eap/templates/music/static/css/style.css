@@ -2818,9 +2818,11 @@ h1.bolder-style.dark, h1.bolder-style.dark a {
     font-weight: 700;
     color: #3a3a3a;
     text-decoration: none;
-    text-transform: uppercase;
-    font-size: 16px;
+    font-size: 14px;
+}
 
+.item h4 a span {
+    text-transform: uppercase;
 }
 
 .description p {

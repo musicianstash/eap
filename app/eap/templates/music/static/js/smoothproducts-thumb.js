@@ -5,10 +5,10 @@ $(".sp-thumbs a:first").addClass("sp-current").clone().removeClass("sp-current")
 $(".sp-wrap").css("display", "inline-block");
 var slideTiming = 300;
 var maxWidth = $(".sp-large img").width();
-$(".sp-thumbs").live("click", function (e) {
-    e.preventDefault()
+$(document).on("click", ".sp-thumbs", function(e) {
+    e.preventDefault();
 });
-$(".sp-tb-active a").live("click", function (e) {
+$(document).on("click", ".sp-tb-active a", function (e) {
     $(".sp-current").removeClass();
     $(".sp-thumbs").removeClass("sp-tb-active");
     $(".sp-zoom").remove();
@@ -24,7 +24,7 @@ $(".sp-tb-active a").live("click", function (e) {
     });
     e.preventDefault()
 });
-$(".sp-large a").live("click", function (e) {
+$(document).on("click", ".sp-large a", function (e) {
     var t = $(this).attr("href");
     $(".sp-large").append('<div class="sp-zoom"><img src="' + t + '"/></div>');
     $(".sp-zoom").fadeIn();
@@ -46,9 +46,8 @@ $(document).ready(function () {
     }).mouseout(function () {
     })
 });
-$(".sp-zoom").live("click", function (e) {
+$(document).on("click", ".sp-zoom", function (e) {
     $(this).fadeOut(function () {
         $(this).remove()
     })
 })
-
