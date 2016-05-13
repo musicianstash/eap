@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+from eap.contrib.models import CacheAllMixin
+
 from sorl.thumbnail import ImageField
 
+BRAND_CACHE_KEY = 'brand.models.brand'
 
-class Brand(models.Model):
+
+class Brand(CacheAllMixin, models.Model):
+    cache_all_mixin_key = BRAND_CACHE_KEY
+
     is_active = models.BooleanField(default=False)
     is_popular = models.BooleanField(default=False)
 

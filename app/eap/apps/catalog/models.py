@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+from eap.contrib.models import CacheAllMixin
 from eap.apps.brand.models import Brand
-from eap.apps.localization.models import Currency
 from eap.apps.store.models import Store
 
 from mptt.fields import TreeForeignKey
@@ -10,9 +10,14 @@ from mptt.models import MPTTModel
 
 from sorl.thumbnail import ImageField
 
+COLOR_CACHE_KEY = 'catalog.models.color'
 
-class Color(models.Model):
+
+class Color(CacheAllMixin, models.Model):
+    cache_all_mixin_key = COLOR_CACHE_KEY
+
     name = models.CharField(max_length=32)
+    slug = models.SlugField(max_length=64)
 
     def __str__(self):
         return self.name
@@ -111,6 +116,14 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def slug_with_id(self):
+        return '{}-{}'.format(self.slug, self.id)
+
+    @classmethod
+    def id_from_slug(cls, slug):
+        return int(slug.split('-')[-1])
 
     @property
     def image(self):

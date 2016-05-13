@@ -1,10 +1,16 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 
+from eap.contrib.models import CacheAllMixin
+
 from sorl.thumbnail import ImageField
 
+STORE_CACHE_KEY = 'store.models.store'
 
-class Store(models.Model):
+
+class Store(CacheAllMixin, models.Model):
+    cache_all_mixin_key = STORE_CACHE_KEY
+
     is_active = models.BooleanField(default=False)
 
     # Description fields
