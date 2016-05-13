@@ -16,6 +16,9 @@ INSTALLED_APPS += (
 )
 
 
+# Please note that more the options are enabled then slower applications will be because certain
+# functionality has to wait for response to complete in order to process the data! If testing the
+# response is needed then it's better to comment out functionality that you don't need!
 DEBUG_TOOLBAR_PANELS = [
     'elastic_panel.panel.ElasticDebugPanel',
     'debug_toolbar.panels.sql.SQLPanel',
@@ -26,6 +29,7 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.headers.HeadersPanel',
     'debug_toolbar.panels.request.RequestPanel',
     'debug_toolbar.panels.staticfiles.StaticFilesPanel',
+    'debug_toolbar.panels.profiling.ProfilingPanel',
     'debug_toolbar.panels.templates.TemplatesPanel',
     'debug_toolbar.panels.signals.SignalsPanel',
     'debug_toolbar.panels.logging.LoggingPanel',
