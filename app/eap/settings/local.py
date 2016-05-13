@@ -12,9 +12,12 @@ COMPRESS_REBUILD_TIMEOUT = 1
 
 INSTALLED_APPS += (
     'debug_toolbar',
+    'elastic_panel'
 )
 
+
 DEBUG_TOOLBAR_PANELS = [
+    'elastic_panel.panel.ElasticDebugPanel',
     'debug_toolbar.panels.sql.SQLPanel',
     'debug_toolbar.panels.cache.CachePanel',
     'debug_toolbar.panels.versions.VersionsPanel',
@@ -28,6 +31,12 @@ DEBUG_TOOLBAR_PANELS = [
     'debug_toolbar.panels.logging.LoggingPanel',
     'debug_toolbar.panels.redirects.RedirectsPanel',
 ]
+
+DEBUG_TOOLBAR_CONFIG = {
+    # we need to set that because otherwise debug toolbar is not working
+    'SHOW_TOOLBAR_CALLBACK': lambda request: True,
+}
+
 
 THUMBNAIL_DEBUG = True
 
