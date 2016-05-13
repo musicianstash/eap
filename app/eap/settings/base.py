@@ -102,6 +102,12 @@ TEMPLATES = [
         ],
         'APP_DIRS': True,
         'OPTIONS': {
+            # 'loaders': [
+            #     ('django.template.loaders.cached.Loader', [
+            #         'django.template.loaders.filesystem.Loader',
+            #         'django.template.loaders.app_directories.Loader',
+            #     ]),
+            # ],
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.request',
@@ -123,8 +129,6 @@ WSGI_APPLICATION = 'eap.wsgi.application'
 
 
 # *** Custom apps settings
-DISCOUNT_RANGES = (10, 20, 30, 40, 50, 70)
-
 OPENEXCHANGERATES_API_KEY = os.getenv('EAP_OPENEXCHANGERATES_API_KEY',
                                       'cd4f8092337f41b8a12da232d1191317')
 
@@ -163,8 +167,17 @@ CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
         'LOCATION': 'unique-snowflake',
-    }
+    },
+    # 'default': {
+    #     'BACKEND': 'django.core.cache.backends.memcached.MemcachedCache',
+    #     'LOCATION': 'memcached:11211',
+    # }
 }
+
+
+# *** Cached sessions
+# https://docs.djangoproject.com/en/1.9/topics/http/sessions/#using-cached-sessions
+SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
 
 
 # *** Auth
@@ -214,8 +227,8 @@ PAGINATION_SETTINGS = {
 
 # *** Celery
 # http://docs.celeryproject.org/en/latest/django/first-steps-with-django.html
-BROKER_URL = os.getenv('EAP_CELERY_BROKER_URL', 'redis://localhost:6379')
-CELERY_RESULT_BACKEND = os.getenv('EAP_CELERY_RESULT_BACKEND', 'redis://localhost:6379')
+BROKER_URL = os.getenv('EAP_CELERY_BROKER_URL', 'redis://redis:6379')
+CELERY_RESULT_BACKEND = os.getenv('EAP_CELERY_RESULT_BACKEND', 'redis://redis:6379')
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
