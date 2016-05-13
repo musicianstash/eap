@@ -18,6 +18,8 @@ def save_crawler_item(item_data):
     category_obj = get_category_from_category_name(item_data['classifiers'])
 
     item, is_new = get_or_create_item(item_data['unique_code'])
+    item.type = 2
+    item.status = 2 if store_obj and brand_obj and color_obj else 1
     item.store = store_obj
     item.brand = brand_obj
     item.color = color_obj
