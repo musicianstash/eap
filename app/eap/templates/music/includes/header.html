@@ -72,7 +72,13 @@
                             {% for item_subcategory in item_category.get_children %}
                             <ul class="col-lg-2  col-sm-2 col-md-2 unstyled">
                                 <li class="no-border">
-                                    <p><strong>{{ item_subcategory.name }}</strong></p>
+                                    <p>
+                                        <strong>
+                                            <a href="{% url 'items' item_subcategory.slug %}">
+                                                {{ item_subcategory.name }}
+                                            </a>
+                                        </strong>
+                                    </p>
                                 </li>
                                 {% for item_subsubcategory in item_subcategory.get_children %}
                                     <li><a href="{% url 'items' item_subsubcategory.slug %}">{{ item_subsubcategory.name }}</a></li>
