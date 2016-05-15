@@ -5,6 +5,7 @@ from urllib.parse import urlencode
 
 from .models import Item, Category
 
+from django.core.urlresolvers import reverse
 from django.shortcuts import render
 from django.views.generic import View
 from django.views.generic.list import ListView
@@ -31,6 +32,8 @@ class ItemView(View):
 
 class ItemsView(PaginationMixin, ListView):
     template_name = 'catalog/items.html'
+
+    category_field = 'category_ids'
 
     # Facet settings
     facet_fields = [
@@ -102,13 +105,13 @@ class ItemsView(PaginationMixin, ListView):
         context['object_list'] = self.execute_queryset(context['object_list'])
         context['category'] = self.selected_category_obj
         context['total_res'] = context['object_list'].hits.total
+        context['category_results'] = self._get_category_results(context['object_list'])
         context['facet_results'] = self._get_facet_results(context['object_list'])
         context['orderings'] = self._get_orderings()
         return context
 
     def get_queryset(self):
         queryset = ItemSearch(process_search=self._apply_filters)
-        # queryset = self._apply_filters(queryset)
         queryset = self._apply_facet_filters(queryset)
         queryset = queryset.build_search()
         queryset = self._apply_orderings(queryset)
@@ -116,12 +119,6 @@ class ItemsView(PaginationMixin, ListView):
 
     def execute_queryset(self, queryset):
         return queryset.execute()
-
-    def _apply_filters(self, search):
-        if not self.selected_category_obj:
-            return search
-
-        return search.filter('terms', category_id=[self.selected_category_obj.id])
 
     @property
     def selected_category_obj(self):
@@ -135,10 +132,11 @@ class ItemsView(PaginationMixin, ListView):
     def current_ordering(self):
         return self.request.GET.get('ordering') or self.ordering
 
-    # def _apply_filters(self, queryset):
-    #     queryset = queryset.search()
-    #
-    #     return queryset
+    def _apply_filters(self, search):
+        if not self.selected_category_obj:
+            return search
+
+        return search.filter('terms', categories=[self.selected_category_obj.id])
 
     def _apply_orderings(self, queryset):
         if not self.current_ordering:
@@ -147,7 +145,9 @@ class ItemsView(PaginationMixin, ListView):
         return queryset.sort(self.current_ordering)
 
     def _apply_facet_filters(self, queryset):
-        for field in self.facet_field_names:
+        facet_field_names = self.facet_field_names
+
+        for field in facet_field_names:
             selected_values = self.request.GET.getlist(field)
 
             if selected_values:
@@ -175,6 +175,40 @@ class ItemsView(PaginationMixin, ListView):
             })
         return orderings
 
+    def _get_category_results(self, object_list):
+        if not self.category_field:
+            return None
+
+        category_data = {
+            'name': 'Category',
+            'parent_results': [],
+            'results': []
+        }
+
+        parent_categories = self.selected_category_obj.get_ancestors(False, True)
+        categories = self.selected_category_obj.get_children() or [self.selected_category_obj]
+
+        for category in parent_categories:
+            if len(categories) == 1 and categories[0].id == category.id:
+                continue
+
+            url = reverse('items', kwargs={'slug': category.slug})
+            category_data['parent_results'].append({
+                'selected': category.id == self.selected_category_obj.id,
+                'name': category.name,
+                'url': url
+            })
+
+        for category in categories:
+            url = reverse('items', kwargs={'slug': category.slug})
+            category_data['results'].append({
+                'selected': category.id == self.selected_category_obj.id,
+                'name': category.name,
+                'url': url
+            })
+
+        return category_data
+
     def _get_facet_results(self, object_list):
         facet_results = []
         for field in self.facet_fields:
@@ -201,12 +235,14 @@ class ItemsView(PaginationMixin, ListView):
                 if selected:
                     selected_facet = True
 
+                facet_url = self._create_facet_url(field, value, selected)
+
                 results.append({
                     'value': value,
                     'count': count,
                     'selected': selected,
                     'name': name,
-                    'querystring': self._create_facet_querystring(field, value, selected)
+                    'url': facet_url
                 })
 
             field['results'] = results
@@ -214,6 +250,7 @@ class ItemsView(PaginationMixin, ListView):
 
             if results:
                 facet_results.append(field)
+
         return facet_results
 
     def _create_facet_querystring(self, field, value, selected):
@@ -230,6 +267,11 @@ class ItemsView(PaginationMixin, ListView):
                 querystring[field['name']].append(str(value))
 
         return urlencode(querystring, doseq=True)
+
+    def _create_facet_url(self, field, value, selected):
+        querystring = self._create_facet_querystring(field, value, selected)
+        url = reverse('items', kwargs={'slug': self.category_slug})
+        return '{}?{}'.format(url, querystring) if querystring else url
 
     def _get_querystring(self):
         querystring = {}

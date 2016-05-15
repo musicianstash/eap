@@ -75,7 +75,6 @@ class ItemSearch(FacetedSearch):
 
     facets = {
         # use bucket aggregations to define facets
-        'category_ids': TermsFacet(field='categories'),
         'color_ids': TermsFacet(field='color_id'),
         'brand_ids': TermsFacet(field='brand_id'),
         'store_ids': TermsFacet(field='store_id'),

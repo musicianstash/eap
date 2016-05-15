@@ -10,6 +10,7 @@
             <!--left column-->
             <div class="col-lg-2 col-md-3 col-sm-12">
                 <div class="panel-group" id="accordionNo">
+                    {% include 'includes/items_filter_category.html' with filter=category_results %}
                     {% for facet_result in facet_results %}
                         {% include 'includes/items_filter.html' with filter=facet_result %}
                     {% endfor %}

@@ -13,7 +13,7 @@
                     <div class="checkbox checkbox-success">
                         <input class="styled" type="checkbox" {% if filter_data.selected %}checked{% endif %}>
                         <label>
-                            <a href="?{{ filter_data.querystring }}">
+                            <a href="{{ filter_data.url }}">
                             {{ filter_data.name }} ({{ filter_data.count }})
                             </a>
                         </label>
