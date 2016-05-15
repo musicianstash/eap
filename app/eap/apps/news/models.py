@@ -68,3 +68,15 @@ class ArticleImage(models.Model):
     image = models.ImageField(upload_to='articles')
 
 
+class Newsletter(models.Model):
+    """Model holds subscription to newsletter."""
+    user = models.OneToOneField(User)
+    active = models.BooleanField(default=True)
+
+    def __unicode__(self):
+        if self.active:
+            return 'Subscribed'
+        else:
+            return 'Unsubscribed'
+
+

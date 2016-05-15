@@ -290,3 +290,7 @@ AWS_QUERYSTRING_AUTH = False
 # disable https for cross site problems
 AWS_S3_SECURE_URLS = False
 AWS_PRELOAD_METADATA = True
+
+# *** MailChimp ***
+MAILCHIMP_USERNAME = 'musicianstash@gmail.com'
+MAILCHIMP_SECRET_API_KEY = '00bfc1610ae83542d0a19103661f7be1-us13'
