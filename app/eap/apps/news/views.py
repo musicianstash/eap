@@ -25,3 +25,6 @@ class ArticlesListView(PaginationMixin, ListView):
     context_object_name = 'articles'
     template_name = 'news/articles.html'
     paginate_by = 10
+
+
+# todo: add a method that receives POST requests and handles it
