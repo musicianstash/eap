@@ -136,7 +136,13 @@ class ItemsView(PaginationMixin, ListView):
         if not self.selected_category_obj:
             return search
 
-        return search.filter('terms', categories=[self.selected_category_obj.id])
+        search = search.filter('terms', countries=['US'.lower()])
+
+        # Filter by selected category
+        if self.selected_category_obj:
+            search = search.filter('terms', categories=[self.selected_category_obj.id])
+
+        return search
 
     def _apply_orderings(self, queryset):
         if not self.current_ordering:
