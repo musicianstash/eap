@@ -30,6 +30,7 @@ def save_crawler_item(item_data):
     item.price = convert_value(item_data['price'], item_data['currency'], 'USD')
     item.sale_price = convert_value(item_data['sale_price'], item_data['currency'], 'USD')
     item.in_stock = item_data['stock']
+    item.countries = ','.join(item_data['countries'])
 
     item.slug = create_url_slug(
         brand_obj.name,
