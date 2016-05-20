@@ -79,33 +79,47 @@ class Newsletter(models.Model):
     user = models.OneToOneField(User)
     email = models.EmailField(_('email address'), blank=True)
     subscribed = models.BooleanField(default=True)
+    latest_news = models.BooleanField(default=True)
+    new_product = models.BooleanField(default=True)
+    offer = models.BooleanField(default=True)
+
+    @property
+    def member_id(self):
+        return get_subscriber_hash(self.email)
 
     def save(self, *args, **kwargs):
         # we can have users on newsletter that are not registered on site
         if self.user:
             self.email = self.user.email
+        self.update_mailchimp()
         super(Newsletter, self).save(*args, **kwargs)
 
     def sync_from_mailchimp(self):
+        # TODO: trigger this via webhooks
         """Sync our model with state on MailChimp side."""
         api = get_mailchimp_api()
-        member_id = get_subscriber_hash(self.email)
 
         # get member from list and his status
-        member = api.member.get(settings.MAILCHIMP_LIST_NEWSLETTER_ID, member_id)
+        member = api.member.get(settings.MAILCHIMP_LIST_NEWSLETTER_ID, self.member_id)
 
         # for non existent members, status contains 404 code
-        if member['status'] != 404 and member['status'] != self.__unicode__().lower:
+        if member['status'] != 404:
             self.subscribed = self.status_to_subscribed(member['status'])
+            self.latest_news = member['interests'][settings.MAILCHIMP_LATEST_NEWS_ID]
+            self.new_product = member['interests'][settings.MAILCHIMP_NEW_PRODUCT_ID]
+            self.offer = member['interests'][settings.MAILCHIMP_OFFER_ID]
             self.save()
 
     def update_mailchimp(self):
         """Update list on MailChimp side."""
         api = get_mailchimp_api()
-        member_id = get_subscriber_hash(self.email)
 
-        data = {'status': self.__unicode__().lower}
-        api.member.create_or_update(settings.MAILCHIMP_LIST_NEWSLETTER_ID, member_id, data=data)
+        data = {'status': self.__unicode__().lower, 'interests': {
+            settings.MAILCHIMP_LATEST_NEWS_ID: self.latest_news,
+            settings.MAILCHIMP_NEW_PRODUCT_ID: self.new_product,
+            settings.MAILCHIMP_OFFER_ID: self.offer}
+        }
+        api.member.create_or_update(settings.MAILCHIMP_LIST_NEWSLETTER_ID, self.member_id, data=data)
 
     @staticmethod
     def status_to_subscribed(status):

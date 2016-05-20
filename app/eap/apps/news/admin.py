@@ -2,9 +2,9 @@
 from django import forms
 from django.contrib import admin
 
-from suit.admin import SortableModelAdmin
+from suit.admin import SortableModelAdmin, ModelAdmin
 from suit.widgets import SuitSplitDateTimeWidget
-from .models import Article, ArticleCategory, ArticleImage
+from .models import Article, ArticleCategory, ArticleImage, Newsletter
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -42,5 +42,18 @@ class ArticleCategoryAdmin(SortableModelAdmin):
     form = ArticleCategoryForm
     sortable = 'order'
 
+
+class NewsletterForm(forms.ModelForm):
+    class Meta:
+        model = Newsletter
+        fields = ['user', 'email', 'subscribed', 'latest_news', 'new_product', 'offer']
+
+
+class NewsletterAdmin(ModelAdmin):
+    form = NewsletterForm
+
+
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(ArticleCategory, ArticleCategoryAdmin)
+admin.site.register(Newsletter, NewsletterAdmin)
+
