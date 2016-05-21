@@ -109,4 +109,4 @@ def prepare_categories(obj):
     return [category.id for category in obj.category.get_ancestors(True, True)]
 
 
-ItemDoc.init()
+# ItemDoc.init()
