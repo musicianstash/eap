@@ -76,7 +76,7 @@ class ArticleImage(models.Model):
 
 class Newsletter(models.Model):
     """Model holds subscription to newsletter."""
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     email = models.EmailField(_('email address'), blank=True)
     subscribed = models.BooleanField(default=True)
     latest_news = models.BooleanField(default=True)
@@ -85,7 +85,7 @@ class Newsletter(models.Model):
 
     @property
     def member_id(self):
-        return get_subscriber_hash(self.email)
+        return get_subscriber_hash(self.email.encode('utf-8'))
 
     def save(self, *args, **kwargs):
         # we can have users on newsletter that are not registered on site
@@ -114,11 +114,15 @@ class Newsletter(models.Model):
         """Update list on MailChimp side."""
         api = get_mailchimp_api()
 
-        data = {'status': self.__unicode__().lower, 'interests': {
+        data = {'email_address': self.email, 'status': self.__unicode__().lower(), 'interests': {
             settings.MAILCHIMP_LATEST_NEWS_ID: self.latest_news,
             settings.MAILCHIMP_NEW_PRODUCT_ID: self.new_product,
             settings.MAILCHIMP_OFFER_ID: self.offer}
         }
+
+        if self.user:
+            # TODO: add other data, such as name, surname, etc.
+            pass
         api.member.create_or_update(settings.MAILCHIMP_LIST_NEWSLETTER_ID, self.member_id, data=data)
 
     @staticmethod
