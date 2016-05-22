@@ -4,7 +4,7 @@ from django.contrib import admin
 
 from suit.admin import SortableModelAdmin, ModelAdmin
 from suit.widgets import SuitSplitDateTimeWidget
-from .models import Article, ArticleCategory, ArticleImage, Newsletter
+from .models import Article, ArticleCategory, ArticleImage, Subscriber
 from ckeditor.widgets import CKEditorWidget
 
 
@@ -43,17 +43,24 @@ class ArticleCategoryAdmin(SortableModelAdmin):
     sortable = 'order'
 
 
-class NewsletterForm(forms.ModelForm):
+class SubscriberForm(forms.ModelForm):
     class Meta:
-        model = Newsletter
-        fields = ['user', 'email', 'subscribed', 'latest_news', 'new_product', 'offer']
+        model = Subscriber
+        fields = '__all__'
 
 
-class NewsletterAdmin(ModelAdmin):
-    form = NewsletterForm
+class SubscriberAdmin(ModelAdmin):
+    form = SubscriberForm
+    fieldsets = [
+        (None, {
+            'fields': ['user', 'email', 'subscribed']}),
+        ('Groups', {
+            'description': 'Groups user is subscribed to',
+            'fields': ['latest_news', 'new_product', 'offer']}),
+    ]
 
 
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(ArticleCategory, ArticleCategoryAdmin)
-admin.site.register(Newsletter, NewsletterAdmin)
+admin.site.register(Subscriber, SubscriberAdmin)
 

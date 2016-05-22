@@ -74,7 +74,7 @@ class ArticleImage(models.Model):
     image = models.ImageField(upload_to='articles')
 
 
-class Newsletter(models.Model):
+class Subscriber(models.Model):
     """Model holds subscription to newsletter."""
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     email = models.EmailField(_('email address'), blank=True)
@@ -92,7 +92,7 @@ class Newsletter(models.Model):
         if self.user:
             self.email = self.user.email
         self.update_mailchimp()
-        super(Newsletter, self).save(*args, **kwargs)
+        super(Subscriber, self).save(*args, **kwargs)
 
     def sync_from_mailchimp(self):
         # TODO: trigger this via webhooks
@@ -134,3 +134,6 @@ class Newsletter(models.Model):
             return 'Subscribed'
         else:
             return 'Unsubscribed'
+
+    def __str__(self):
+        return self.email
