@@ -74,8 +74,28 @@ class ArticleImage(models.Model):
     image = models.ImageField(upload_to='articles')
 
 
+class SubscriberManager(models.Manager):
+    def sync_all_from_mailchimp(self):
+        """Table level functionality for updating all subscribers from MailChimp service."""
+        api = get_mailchimp_api()
+        subscribers = api.member.all(settings.MAILCHIMP_LIST_NEWSLETTER_ID, count=1e9)
+        for subscriber in subscribers['members']:
+            Subscriber.objects.update_or_create(email=subscriber['email_address'],
+                defaults={'email': subscriber['email_address'],
+                          'subscribed': Subscriber.status_to_subscribed(subscriber['status']),
+                          'latest_news': subscriber['interests'][settings.MAILCHIMP_LATEST_NEWS_ID],
+                          'new_product': subscriber['interests'][settings.MAILCHIMP_NEW_PRODUCT_ID],
+                          'offer': subscriber['interests'][settings.MAILCHIMP_OFFER_ID]})
+
+    def update_all_mailchimp(self):
+        """Update all subscribers on MailChimp."""
+        for subscriber in Subscriber.objects.all():
+            subscriber.update_mailchimp()
+
+
 class Subscriber(models.Model):
     """Model holds subscription to newsletter."""
+    objects = SubscriberManager()
     user = models.OneToOneField(User, on_delete=models.CASCADE, blank=True, null=True)
     email = models.EmailField(_('email address'), blank=True)
     subscribed = models.BooleanField(default=True)
@@ -121,8 +141,7 @@ class Subscriber(models.Model):
         }
 
         if self.user:
-            # TODO: add other data, such as name, surname, etc.
-            pass
+            data['merge_fields'] = {'FNAME': self.user.first_name, 'LNAME': self.user.last_name}
         api.member.create_or_update(settings.MAILCHIMP_LIST_NEWSLETTER_ID, self.member_id, data=data)
 
     @staticmethod
