@@ -11,34 +11,37 @@
                         <div class="subscribe-dropdown">
                             <div class="dropdown"><a class="btn btn-subscribe dropdown-toggle" id="dropdownMenu1"
                                                      data-toggle="dropdown" aria-expanded="true">Subscribe</a>
-                                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                                    <li>
-                                        <div>
-                                            <label>
-                                                <input name="option1" value="option1" type="checkbox">
-                                                &nbsp; Latest News </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <label>
-                                                <input name="option2" value="option2" type="checkbox">
-                                                &nbsp; New Product </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <div>
-                                            <label>
-                                                <input name="option3" value="option3" type="checkbox">
-                                                &nbsp; Offer </label>
-                                        </div>
-                                    </li>
-                                    <li>
-                                        <input placeholder="Enter Your Email" id="subemail" name="subemail"
-                                               type="text"/>
-                                    </li>
-                                    <li><a href="#" class="btn btn-block">Subscribe</a></li>
-                                </ul>
+                                <form action="" method="post">{% csrf_token %}
+                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                        {{ form.as_p }}
+{#                                        <li>#}
+{#                                            <div>#}
+{#                                                <label>#}
+{#                                                    <input name="option1" value="option1" type="checkbox">#}
+{#                                                    &nbsp; Latest News </label>#}
+{#                                            </div>#}
+{#                                        </li>#}
+{#                                        <li>#}
+{#                                            <div>#}
+{#                                                <label>#}
+{#                                                    <input name="option2" value="option2" type="checkbox">#}
+{#                                                    &nbsp; New Product </label>#}
+{#                                            </div>#}
+{#                                        </li>#}
+{#                                        <li>#}
+{#                                            <div>#}
+{#                                                <label>#}
+{#                                                    <input name="option3" value="option3" type="checkbox">#}
+{#                                                    &nbsp; Offer </label>#}
+{#                                            </div>#}
+{#                                        </li>#}
+{#                                        <li>#}
+{#                                            <input placeholder="Enter Your Email" id="subemail" name="subemail"#}
+{#                                                   type="text"/>#}
+{#                                        </li>#}
+                                        <li><a href="#" class="btn btn-block">Subscribe</a></li>
+                                    </ul>
+                                </form>
                             </div>
                         </div>
                     </div>
