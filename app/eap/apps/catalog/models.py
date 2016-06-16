@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 from eap.contrib.models import CacheAllMixin
@@ -84,7 +85,7 @@ class Item(models.Model):
     # Type and status fields
     type = models.SmallIntegerField(choices=ITEM_TYPE_CHOICES, default=1)
     status = models.SmallIntegerField(choices=ITEM_STATUS_CHOICES, default=1)
-    spider_code = models.CharField(max_length=128, blank=True)
+    code = models.CharField(max_length=128, blank=True)
 
     # Description fields
     name = models.CharField(max_length=128)
@@ -109,6 +110,9 @@ class Item(models.Model):
     in_stock = models.BooleanField(default=False)
 
     category = TreeForeignKey(Category, null=True)
+
+    related_items = ArrayField(models.IntegerField(), blank=True)
+    skus = ArrayField(models.CharField(max_length=128), blank=True)
 
     # SEO fields
     meta_keywords = models.TextField(max_length=255, blank=True)
@@ -148,7 +152,7 @@ class ItemImage(models.Model):
 
 
 class StockAlert(models.Model):
-    item = models.ForeignKey(Item, related_name='stock_alert')
+    item = models.ForeignKey(Item)
     email = models.EmailField(max_length=254)
     created_datetime = models.DateTimeField(auto_now_add=True)
 
@@ -158,7 +162,7 @@ class StockAlert(models.Model):
 
 
 class PriceAlert(models.Model):
-    item = models.ForeignKey(Item, related_name='price_alert')
+    item = models.ForeignKey(Item)
     price = models.DecimalField(max_digits=8, decimal_places=2)
     email = models.EmailField(max_length=254)
     created_datetime = models.DateTimeField(auto_now_add=True)
