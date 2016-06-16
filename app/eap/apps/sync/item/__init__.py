@@ -43,9 +43,9 @@ def save_crawler_item(item_data):
         save_item_images_from_image_urls(item, item_data['images'])
 
 
-def get_or_create_item(unique_code):
+def get_or_create_item(code):
     try:
         # item already exists
-        return Item.objects.get(spider_code=unique_code), False
+        return Item.objects.get(code=code), False
     except:
-        return Item(spider_code=unique_code), True
+        return Item(code=code), True

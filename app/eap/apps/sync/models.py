@@ -1,7 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from eap.apps.store.models import Store
+from mptt.fields import TreeForeignKey
 
+from ..brand.models import Brand
+from ..catalog.models import Category
 
 CRAWLER_STATUS_CHOICES = ((1, 'Not Running'), (2, 'Queue'), (3, 'Running'), (4, 'Stopping'))
 
@@ -17,3 +20,17 @@ class Crawler(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class CrawlerCategory(models.Model):
+    crawler = models.ForeignKey(Crawler, related_name='categories')
+    category = TreeForeignKey(Category)
+    classifier = models.BooleanField(default=True)
+    name = models.BooleanField(default=False)
+    description = models.BooleanField(default=False)
+    brand = models.ForeignKey(Brand, null=True)
+    keys = models.TextField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta(object):
+        ordering = ('order',)
