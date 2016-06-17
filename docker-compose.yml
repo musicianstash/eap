@@ -1,83 +1,73 @@
-version: '2'
+eap:
+  container_name: eap
+  build: ./app
+  ports:
+    - "8080:8080"
+  links:
+    - postgres:postgres
+    - redis:redis
+    - elasticsearch:elasticsearch
+    - memcached:memcached
+  volumes:
+    - ./app:/usr/src/app
+    - ./app:/usr/src/app/eap/static
+  env_file: .env
+  environment:
+    DEBUG: 'true'
+  command: /usr/local/bin/gunicorn eap.wsgi:application -b :8080
 
+nginx:
+  restart: always
+  container_name: nginx
+  build: ./nginx/
+  ports:
+    - "8000:80"
+  links:
+    - eap:eap
+  volumes_from:
+    - eap
+  volumes:
+    - /www/static
 
-services:
-  eap:
-    container_name: eap
-    build: ./app
-    ports:
-      - "8080:8080"
-    depends_on:
-      - postgres
-      - redis
-      - elasticsearch
-      - memcached
-    volumes:
-      - ./app:/usr/src/app
-      - ./app:/usr/src/app/eap/static
-    env_file: .env
-    environment:
-      DEBUG: 'true'
-    command: /usr/local/bin/gunicorn eap.wsgi:application -b :8080
+postgres:
+  restart: always
+  container_name: postgres
+  image: postgres:9.5.2
+  environment:
+    POSTGRES_USER: "eap"
+    POSTGRES_PASSWORD: "eap"
+    POSTGRES_DB: "eap"
+  ports:
+    - "5432:5432"
+  volumes:
+    - pgdata:/var/lib/postgresql/data/
 
-  nginx:
-    restart: always
-    build: ./nginx/
-    ports:
-      - "8000:80"
-    depends_on:
-      - eap
-    volumes_from:
-      - eap
-    volumes:
-      - /www/static
+memcached:
+  restart: always
+  container_name: memcached
+  image: memcached:1.4.25
+  ports:
+    - "11211:11211"
 
-  postgres:
-    restart: always
-    container_name: postgres
-    image: postgres:9.5.2
-    environment:
-      POSTGRES_USER: "eap"
-      POSTGRES_PASSWORD: "eap"
-      POSTGRES_DB: "eap"
-    ports:
-      - "5432:5432"
-    volumes:
-      - pgdata:/var/lib/postgresql/data/
+redis:
+  restart: always
+  container_name: redis
+  image: redis:3.0.7
+  ports:
+    - "6379:6379"
+  volumes:
+    - redisdata:/data
 
-  memcached:
-    restart: always
-    container_name: memcached
-    image: memcached:1.4.25
-    ports:
-      - "11211:11211"
+elasticsearch:
+  restart: always
+  container_name: elasticsearch
+  image: elasticsearch:2.3.2
+  ports:
+    - "9200:9200"
+    - "9300:9300"
 
-  redis:
-    restart: always
-    container_name: redis
-    image: redis:3.0.7
-    ports:
-      - "6379:6379"
-    volumes:
-      - redisdata:/data
-
-  elasticsearch:
-    restart: always
-    container_name: elasticsearch
-    image: elasticsearch:2.3.2
-    ports:
-      - "9200:9200"
-      - "9300:9300"
-
-  adminer:
-    container_name: adminer
-    image: clue/adminer
-    ports:
-      - "9000:80"
-
-
-volumes:
-  redisdata:
-    driver: local
-  pgdata:
-    driver: local
+adminer:
+  container_name: adminer
+  image: clue/adminer
+  ports:
+    - "9000:80"
