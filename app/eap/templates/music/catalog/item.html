@@ -37,45 +37,31 @@
                 </div>
                 <div class="cart-actions">
                     <div class="addto row">
+                        {% if item.in_stock %}
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            {% if item.in_stock %}
                             <a href="{{ item.url }}"
                                class="link-wishlist wishlist btn-block"
                                target="_blank">
                                 BUY ON STORE
                             </a>
-                            {% else %}
-                            <a href="#" class="link-wishlist wishlist btn-block">
-                                GET STOCK ALERT
-                            </a>
-                            {% endif %}
-                        </div>
-
-                        {% if item.in_stock %}
-                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <a class="link-wishlist wishlist btn-block ">
-                                <i class="fa fa-tag"></i> Get price alert
-                            </a>
                         </div>
                         {% endif %}
+                        {% if item.in_stock %}
+                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        {% else %}
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        {% endif %}
+                            <a class="link-wishlist wishlist btn-block ">
+                                <i class="fa fa-tag"></i>
+                                {% if item.in_stock %}
+                                GET PRICE ALERT
+                                {% else %}
+                                GET STOCK & PRICE ALERT
+                                {% endif %}
+                            </a>
+                        </div>
                     </div>
                     <div style="clear:both"></div>
-
-                    {% if item.in_stock %}
-                    <h3 class="incaps">
-                        <i class="fa fa fa-check-circle-o color-in"></i> In stock
-                    </h3>
-                    {% else %}
-                    <h3 class="incaps">
-                        <i class="fa fa-minus-circle color-out"></i> Out of stock
-                    </h3>
-                    {% endif %}
-
-                    {% if item.in_stock %}
-                    <h3 class="incaps">
-                        <i class="fa fa-tag"></i> Get discount alert
-                    </h3>
-                    {% endif %}
                 </div>
                 <!--/.cart-actions-->
                 <div class="color-details"><span class="selected-color"><strong>OTHER COLORS</strong></span>

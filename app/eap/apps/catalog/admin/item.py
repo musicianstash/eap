@@ -17,10 +17,10 @@ class ItemImageInline(AdminImageMixin, SortableTabularInline):
 class ItemAdmin(admin.ModelAdmin):
     """ITEMS
     """
-    search_fields = ('name', 'slug', 'spider_code')
+    search_fields = ('name', 'slug', 'code')
     prepopulated_fields = {'slug': ('name',)}
     list_display = ('name', 'category', 'brand', 'store', 'color', 'price',
-                    'sale_price', 'spider_code', 'in_stock')
+                    'sale_price', 'code', 'in_stock')
     list_display_links = ('name',)
     list_filter = ('status', 'brand', 'store', 'category', 'color', 'in_stock')
 
