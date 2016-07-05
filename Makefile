@@ -54,7 +54,7 @@ testindex:
 	docker-compose run eap /usr/local/bin/python manage.py test_index
 
 collectstatic:
-	docker-compose run eap /usr/local/bin/python manage.py collectstatic --noinput
+	docker-compose run eap /usr/local/bin/python manage.py collectstatic
 
 elasticsearch:
 	docker-compose run elasticsearch
